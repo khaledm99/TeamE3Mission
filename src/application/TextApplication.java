@@ -1,3 +1,5 @@
+package application;
+
 /**
  * Classname: TextApplication
  *
@@ -12,6 +14,11 @@
  * 				displaying the data.
  */
 import java.util.Scanner;
+
+import model.Factory;
+import model.Party;
+import model.Poll;
+import model.PollList;
 
 public class TextApplication {
 	

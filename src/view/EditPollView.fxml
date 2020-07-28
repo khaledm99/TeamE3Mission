@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="ToEditTab" prefHeight="512.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditPollController">
+   <center>
+      <VBox prefHeight="905.0" prefWidth="849.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="849.0">
+               <children>
+                  <Label text="Poll To Edit: ">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="PollToEditDropdown" onMouseClicked="#pollDropdownClicked" prefHeight="25.0" prefWidth="90.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="849.0">
+               <children>
+                  <Label text="Party To Update: ">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="PartyToUpdateDropdown" prefHeight="25.0" prefWidth="100.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="15.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="849.0">
+               <children>
+                  <Label text="Projected Number Of Seats">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="ProNumOfSeatsTextField" prefHeight="25.0" prefWidth="75.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="/345">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="849.0">
+               <children>
+                  <Label text="Projected Percentage Of Votes">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="ProPercVotesTextField" prefHeight="25.0" prefWidth="75.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="\%">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="112.0" prefWidth="849.0">
+               <children>
+                  <Button fx:id="ClearButton" mnemonicParsing="false" onMouseClicked="#clearClicked" text="Clear">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="UpdatePartyButton" mnemonicParsing="false" onMouseClicked="#updatePartyClicked" text="Update Party">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <top>
+      <Label fx:id="PollUpdatedLabel" contentDisplay="TOP" opacity="0.0" text="Poll Updated" textFill="#009bff" underline="true" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+</BorderPane>

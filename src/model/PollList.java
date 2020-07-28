@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Classname: PollList
  * 
@@ -47,6 +49,10 @@ public class PollList {
 	// Returns the polls as a Poll object.
 	public Poll[] getPolls() {
 		return polls;
+	}
+	
+	public void setPolls(Poll[] polls) {
+		this.polls = polls;
 	}
 	
 	/**

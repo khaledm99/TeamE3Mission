@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="ToAddTab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddPollController">
+   <children>
+      <Button fx:id="AddButton" layoutX="314.0" layoutY="298.0" mnemonicParsing="false" onAction="#addClick" text="Add Poll" />
+      <TextField fx:id="PollToAdd" layoutX="195.0" layoutY="133.0" onKeyTyped="#addParty" prefHeight="31.0" prefWidth="314.0" />
+      <Label fx:id="AddPartyLabel" layoutX="47.0" layoutY="138.0" text="Name of Poll to Add:" />
+      <Button fx:id="ClearButton" layoutX="217.0" layoutY="298.0" mnemonicParsing="false" onAction="#clearClick" text="Clear" />
+      <ChoiceBox fx:id="PollPlacement" layoutX="244.0" layoutY="185.0" prefHeight="31.0" prefWidth="216.0" />
+      <Label layoutX="47.0" layoutY="190.0" text="Select Poll Placement:" />
+   </children>
+</AnchorPane>
