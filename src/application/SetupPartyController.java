@@ -9,17 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import model.Factory;
+
 
 
 public class SetupPartyController extends PollTrackerController {
 	
-	 
+	private ArrayList<String> originalPartyNames = new ArrayList<String>();
 	private ObservableList<String> partyNames = FXCollections.observableArrayList(); 
+	private int size;
 	
-	private String[] originalPartyNames;
 
-	
     @FXML
     private Button SubmitPartyInfo;
 
@@ -38,9 +37,8 @@ public class SetupPartyController extends PollTrackerController {
     @FXML
     void ClearClicked(ActionEvent event) {
  
-    
     	for(int i=0; i<partyNames.size(); i++) {
-    			partyNames.set(i, originalPartyNames[i]);
+    			partyNames.set(i, originalPartyNames.get(i));
     			
     	}
     	
@@ -54,11 +52,12 @@ public class SetupPartyController extends PollTrackerController {
     	int i;
     	String temp = PartyNameTextField.getText();
        	String itemSelected = PartyNameComboBox.getValue();
-    	
-    	for (String name : partyNames) {
-    		if(name == itemSelected) {
-    			i = partyNames.indexOf(itemSelected);
-    			partyNames.set(i, temp);
+    	if(!(temp == "")) {
+    		for (String name : partyNames) {
+    			if(name == itemSelected) {
+    				i = partyNames.indexOf(itemSelected);
+    				partyNames.set(i, temp);
+    			}
     		}
     	}
     	
@@ -68,7 +67,14 @@ public class SetupPartyController extends PollTrackerController {
     
     @FXML
     void SubmitPartyInfoClicked(ActionEvent event) {
-
+    	String [] finalPartyNames = new String [size];
+    	for (int i = 0; i < size; i++) {
+    		finalPartyNames[i] = partyNames.get(i);
+    	}
+    	
+    	getFactory().setPartyNames(finalPartyNames);
+    	
+    	
     }
 
     @FXML
@@ -76,11 +82,11 @@ public class SetupPartyController extends PollTrackerController {
 
     }
 
-	ObservableList<String> getPartyNames() {
+	ObservableList<String> controllerGetPartyNames() {
 		return partyNames;
 	}
 
-	void setPartyNames(ObservableList<String> partyNames) {
+	void controllerSetPartyNames(ObservableList<String> partyNames) {
 		this.partyNames = partyNames;
 	}
 	
@@ -88,38 +94,35 @@ public class SetupPartyController extends PollTrackerController {
 	@FXML
 	void initialize() {
 		
-		//Factory currentFactory = super.getFactory();
-				
-		//String [] currentPartyNames = currentFactory.getPartyNames();
 		//String [] test = {"one", "two", "three", "four", "five"};
+		//size = test.length;
 		
-		
-		//1#For loop to add parties to partyNames observable
-		//for(int i = 0; i < test.length; i++) {
-		//	partyNames.add(test[i]);
+		//for(int i = 0; i < size; i++) {
+			//partyNames.add(test[i]);
+			//originalPartyNames.add(i,test[i]);
 		//}
 		
-		//originalPartyNames = test.clone()
-	
-		
-		
-		//PartyNameComboBox.setItems(partyNames);
-		
+		PartyNameComboBox.setItems(partyNames);
 	}
 
 	@Override
 	public void refresh() {
-		String[] partyNameList = new  String [getFactory().getPartyNames().length];
-		for(int i = 0; i < getFactory().getPartyNames().length; i++) {
-			
-			partyNameList[i] = getPollList().getPolls()[0].getPartiesSortedByVotes()[i] + "";
-			System.out.println(partyNameList[i]);
+		
+		this.size = getFactory().getPartyNames().length;
+		
+		//System.out.println(size);
+		
+		String[] partyNameList = getFactory().getPartyNames();
+		
+		//1#For loop to add parties to partyNames observable
+		for(int i = 0; i < size; i++) {
+			partyNames.add(partyNameList[i]);
+			originalPartyNames.add(i,partyNameList[i]);
 		}
+		
 		// TODO Auto-generated method stub
 		
 	}
-	
-
 	
 	
 	
