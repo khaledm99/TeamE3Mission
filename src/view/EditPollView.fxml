@@ -110,7 +110,7 @@
       </VBox>
    </center>
    <top>
-      <Label fx:id="PollUpdatedLabel" contentDisplay="TOP" opacity="0.0" text="Poll Updated" textFill="#009bff" underline="true" BorderPane.alignment="CENTER">
+      <Label fx:id="PollUpdatedLabel" contentDisplay="TOP" opacity="0.0" text="Party(ies) Updated:" textFill="#009bff" underline="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="10.0" />
          </BorderPane.margin>
