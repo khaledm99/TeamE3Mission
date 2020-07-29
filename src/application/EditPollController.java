@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import model.Party;
+
 import java.util.Random;
 
 public class EditPollController extends PollTrackerController{
@@ -43,8 +45,12 @@ public class EditPollController extends PollTrackerController{
     @FXML
     private Label PollUpdatedLabel;
     
+    
     @FXML
     void clearClicked(MouseEvent event) {  	
+    	String [] emptyList = new String[0];
+		PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(emptyList));
+		PollUpdatedLabel.setText("Party(ies) Updated:");
     	refresh();
     }
    
@@ -60,7 +66,8 @@ public class EditPollController extends PollTrackerController{
         assert ClearButton != null : "fx:id=\"ClearButton\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert PartyToUpdateDropdown != null : "fx:id=\"PartyToUpdateDropdown\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert UpdatePartyButton != null : "fx:id=\"UpdatePartyButton\" was not injected: check your FXML file 'EditPollView.fxml'.";
-    	}
+	
+    }
 
 	@Override
 	public void refresh() {	
@@ -71,6 +78,7 @@ public class EditPollController extends PollTrackerController{
     	String[] pollNames = new String[getPollList().getPolls().length];
     	int i = 0;
     	while (i< getPollList().getPolls().length) {
+    		
     		pollNames[i] = getPollList().adjustPollToMaximums(getPollList().getPolls()[i]).getPollName();
     		i++;
     	}
@@ -82,34 +90,49 @@ public class EditPollController extends PollTrackerController{
     				@Override
     				public void changed(@SuppressWarnings("rawtypes") ObservableValue observable, Number oldValue, Number newValue) {
     					int index = newValue.intValue();
-    					if (index >= 0)
-    						System.out.println("Selected " + pollNames[index] + " at location " + index);
+    					if (index >= 0) {
+    						
     						String[] partyNames = new String[getFactory().getPartyNames().length];
     						int i = 0;
     						while (i < getFactory().getPartyNames().length) {
     							
     							if (index > -1) {
+    								
     								partyNames[i] = getPollList().getPolls()[index].getPartiesSortedByVotes()[i] + "" ;
     						    	//System.out.println(getPollList().getPolls()[index].getPartiesSortedByVotes()[i].getProjectedPercentageOfVotes());
     						    	UpdatePartyButton.setOnAction((event) -> {
-    						    		
-    						   			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));				    		
-    						    		getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(Float.valueOf(ProPercVotesTextField.getText()));
+  
+    						   			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));		
+    						    		Party selectedParty = getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()];
+    						   			float percVotes = Float.valueOf(ProPercVotesTextField.getText());
+    						   			if (percVotes > 0 && percVotes <= 100){
+    						   				
+    						   				percVotes = percVotes/100;
+    						   			}
+    						   			
+    						    		getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);  						    	
     						    		refresh();
-    			    					ProNumOfSeatsTextField.setText("");
-    			    					ProPercVotesTextField.setText("");
+    			    				 	ProNumOfSeatsTextField.clear();
+    			    					ProPercVotesTextField.clear();
+    			    					String [] emptyList = new String[0];
+    			    					PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(emptyList));
     			    					Random random = new Random();
     			    					int r = random.nextInt(255);
     			    					int g = random.nextInt(255);
     			    					int b = random.nextInt(255);
     			    					Color c = Color.rgb(r,g,b); 
+        			    				PollUpdatedLabel.setText(PollUpdatedLabel.getText() + " " + selectedParty.getName() + "("
+        			    				+ (int)(selectedParty.getProjectedPercentageOfVotes()*100)  + "%, " + (int) selectedParty.getProjectedNumberOfSeats() + " Seats) ");    			    				    			    					
     			    					PollUpdatedLabel.setTextFill(c);
     						    		PollUpdatedLabel.setOpacity(1);	
     						    	});     						    		  						    	   						    	
     							}
+    							
     							i++;
     						}
+    						
     						PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(partyNames));
+    					}
     				}
     			}
     			);
