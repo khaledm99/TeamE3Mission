@@ -87,28 +87,34 @@ public class SetupPartyController extends PollTrackerController {
 	
 	@FXML
 	void initialize() {
-		 
+		
 		//Factory currentFactory = super.getFactory();
 				
 		//String [] currentPartyNames = currentFactory.getPartyNames();
-		String [] test = {"one", "two", "three", "four", "five"};
+		//String [] test = {"one", "two", "three", "four", "five"};
 		
 		
 		//1#For loop to add parties to partyNames observable
-		for(int i = 0; i < test.length; i++) {
-			partyNames.add(test[i]);
-		}
+		//for(int i = 0; i < test.length; i++) {
+		//	partyNames.add(test[i]);
+		//}
 		
-		originalPartyNames = test.clone();
+		//originalPartyNames = test.clone()
 	
 		
 		
-		PartyNameComboBox.setItems(partyNames);
+		//PartyNameComboBox.setItems(partyNames);
 		
 	}
 
 	@Override
 	public void refresh() {
+		String[] partyNameList = new  String [getFactory().getPartyNames().length];
+		for(int i = 0; i < getFactory().getPartyNames().length; i++) {
+			
+			partyNameList[i] = getPollList().getPolls()[0].getPartiesSortedByVotes()[i] + "";
+			System.out.println(partyNameList[i]);
+		}
 		// TODO Auto-generated method stub
 		
 	}
