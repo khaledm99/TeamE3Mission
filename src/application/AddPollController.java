@@ -1,3 +1,13 @@
+/**
+ * Classname: AddPollController
+ *
+ * Version: 1
+ * 
+ * Author: Khaled Mograbee
+ * 
+ * Description:	Controller for AddPollController FXML. 
+ * Allows user to enter a poll name and choose a poll to replace.
+ */
 package application;
 
 import javafx.event.ActionEvent;
@@ -15,23 +25,28 @@ import model.PollList;
 public class AddPollController extends PollTrackerController{
 
     @FXML
-    private TextField PollToAdd;
+    private TextField PollToAdd; // Textfield to enter poll name
 
     @FXML
-    private ChoiceBox PollPlacement;
+    private ChoiceBox PollPlacement; // Choice box to choose a poll to replace
 
     @FXML
-    private Button AddButton;
+    private Button AddButton; // Button to add poll to poll list
 
     @FXML
-    private Button ClearButton;
+    private Button ClearButton; // Button to clear inputs
 
     @FXML
-    private AnchorPane ToAddTab;
+    private AnchorPane ToAddTab; // Anchor Pane to organize add poll tab
     
     @FXML
-    private Label AddPartyLabel;
+    private Label AddPollLabel;
 
+    /**
+     * addClick method. Takes the user input in the choice box
+     * and text field and adds the poll upon clicking the add button.
+     * @param event
+     */
     @FXML
     void addClick(ActionEvent event) {
     	String pollName = PollToAdd.getText();
@@ -58,7 +73,11 @@ public class AddPollController extends PollTrackerController{
     	refresh();
     }
 
-	@Override
+	/**
+	 * refresh method. Overrides refresh method in parent. Clears the
+	 * textfield and choicebox, as well as refreshing the choices in the choicebox.
+	 */
+    @Override
 	public void refresh() {
 		PollToAdd.clear();
 		PollPlacement.getItems().clear();
