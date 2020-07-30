@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import model.Factory;
 
+<<<<<<< HEAD
 /**
  * Classname: SetupPartyController
  *
@@ -23,15 +24,33 @@ import model.Factory;
  * 				the last controls is a textfield.The controller class functions by allowing the user to set/modify the 
  * 				party names of the parties. 
  */
+=======
+
+>>>>>>> parent of a34cc4e... Add javadoc to the controller
 
 
 public class SetupPartyController extends PollTrackerController {
 	
 	private ArrayList<String> originalPartyNames = new ArrayList<String>();
 	private ObservableList<String> partyNames = FXCollections.observableArrayList(); 
+	
+	
+	//LOL PLZ LET US TALK ABOUT DISSS
 	private Factory currentFactory = new Factory(345);
-	private String [] factoryPartyNames = currentFactory.getPartyNames();	
+	private String [] factoryPartyNames = currentFactory.getPartyNames();
+			
 	private int size = factoryPartyNames.length;
+	
+	private ObservableList<String> populateObervableList (String [] defaultPartynames) {
+		
+		for(int i = 0; i < size; i++) {
+			partyNames.add(defaultPartynames[i]);
+			originalPartyNames.add(i,defaultPartynames[i]);
+		}
+		
+		return partyNames;
+		
+	}
 	
     @FXML
     private Button SubmitPartyInfo;
@@ -49,13 +68,6 @@ public class SetupPartyController extends PollTrackerController {
     private TextArea PartyNameTextField;
 
     @FXML
-    
-    /**
-     * ClearClicked action handler. This action handler replaces the party names set in the combobox
-     * with the original party names of the factory, thereby removing the users edits and reseting the 
-     * combobox to its original state.
-     * @param event
-     */
     void ClearClicked(ActionEvent event) {
     	
     	// for loop to reset the combobox to the original party names
@@ -71,16 +83,10 @@ public class SetupPartyController extends PollTrackerController {
     		
    
     @FXML
-    /**
-     * SetPartyClicked action handler. This action handler replaces the party name selected in the combobox with
-     * the party name entered in the text field.
-     * @param event
-     */
     void SetPartyClicked(ActionEvent event) {
-    	
     	int i;
-    	
     	String temp = PartyNameTextField.getText();
+<<<<<<< HEAD
        	
     	String itemSelected = PartyNameComboBox.getValue();
     	
@@ -93,22 +99,30 @@ public class SetupPartyController extends PollTrackerController {
     				}
     			}
     
+=======
+       	String itemSelected = PartyNameComboBox.getValue();
+    	if(!(temp == "")) {
+    		for (String name : partyNames) {
+    			if(name == itemSelected) {
+    				i = partyNames.indexOf(itemSelected);
+    				partyNames.set(i, temp);
+    			}
+    		}
+    	}
+>>>>>>> parent of a34cc4e... Add javadoc to the controller
     	
     	PartyNameTextField.clear();
      }
     	   
     
     @FXML
-    /**
-     * SubmitPartyInfoClicked action handler. This action handler takes the strings found in the observable list
-     * and adds them to a string array which is fed back to the factory object to set the party names. 
-     * @param event
-     */
     void SubmitPartyInfoClicked(ActionEvent event) {
-    	
     	String [] finalPartyNames = new String [size];
+<<<<<<< HEAD
     	
     	//for loop to retrieve the final party string names in the observable list
+=======
+>>>>>>> parent of a34cc4e... Add javadoc to the controller
     	for (int i = 0; i < size; i++) {
     		finalPartyNames[i] = partyNames.get(i);
     	}
@@ -117,13 +131,25 @@ public class SetupPartyController extends PollTrackerController {
     	
     	
     }
+<<<<<<< HEAD
+=======
+
+    @FXML
+    void PartyNameTyped(ActionEvent event) {
+
+    }
+
+	ObservableList<String> controllerGetPartyNames() {
+		return partyNames;
+	}
+
+	void controllerSetPartyNames(ObservableList<String> partyNames) {
+		this.partyNames = partyNames;
+	}
+	
+>>>>>>> parent of a34cc4e... Add javadoc to the controller
 	
 	@FXML
-	/**
-	 * initialize() method which initializes the tab view with default factory party names
-	 * by using the populateObersvableList method to populate the observable list before 
-	 * assigning it to the combobox.  
-	 */
 	void initialize() {
 		
 		partyNames = populateObervableList(factoryPartyNames);
@@ -131,6 +157,7 @@ public class SetupPartyController extends PollTrackerController {
 		PartyNameComboBox.setItems(partyNames);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * populateObersvableList method. This method takes a string array of party names and
 	 * adds them to an empty observable list which it then returns. 
@@ -149,6 +176,8 @@ public class SetupPartyController extends PollTrackerController {
 		
 	}
 	
+=======
+>>>>>>> parent of a34cc4e... Add javadoc to the controller
 	@Override
 	public void refresh() {
 
