@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="501.0" prefWidth="690.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="501.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SetupPollTrackerController">
    <children>
       <Button fx:id="clearButton" alignment="CENTER" layoutX="213.0" layoutY="423.0" mnemonicParsing="false" onAction="#clearEntries" text="Clear" />
       <Button fx:id="submitButton" layoutX="345.0" layoutY="423.0" mnemonicParsing="false" onAction="#submitEntries" text="Submit" />
