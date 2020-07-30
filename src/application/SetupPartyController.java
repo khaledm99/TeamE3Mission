@@ -11,8 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import model.Factory;
 
-
-
 /**
  * Classname: SetupPartyController
  *
@@ -59,9 +57,11 @@ public class SetupPartyController extends PollTrackerController {
      * @param event
      */
     void ClearClicked(ActionEvent event) {
- 
+    	
+    	// for loop to reset the combobox to the original party names
     	for(int i=0; i<partyNames.size(); i++) {
-    			partyNames.set(i, originalPartyNames.get(i));
+    		
+    			partyNames.set(i, originalPartyNames.get(i));	
     			
     	}
     	
@@ -84,17 +84,15 @@ public class SetupPartyController extends PollTrackerController {
        	
     	String itemSelected = PartyNameComboBox.getValue();
     	
-       	if(temp == "") 
-    		return;
-    	
-    	else {
+       
+    	//for loop to replace the party names listed with those in the text field
     			for (String name : partyNames) {
     				if(name == itemSelected) {
     					i = partyNames.indexOf(itemSelected);
     					partyNames.set(i, temp);
     				}
     			}
-    		}
+    
     	
     	PartyNameTextField.clear();
      }
@@ -110,6 +108,7 @@ public class SetupPartyController extends PollTrackerController {
     	
     	String [] finalPartyNames = new String [size];
     	
+    	//for loop to retrieve the final party string names in the observable list
     	for (int i = 0; i < size; i++) {
     		finalPartyNames[i] = partyNames.get(i);
     	}
@@ -140,6 +139,7 @@ public class SetupPartyController extends PollTrackerController {
 	 */
 	private ObservableList<String> populateObervableList (String [] defaultPartynames) {
 		
+		//for loop to add party names to the observable list as well the arraylist which holds the original party names
 		for(int i = 0; i < size; i++) {
 			partyNames.add(defaultPartynames[i]);
 			originalPartyNames.add(i,defaultPartynames[i]);
