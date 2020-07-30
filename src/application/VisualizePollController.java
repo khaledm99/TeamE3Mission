@@ -35,9 +35,6 @@ public class VisualizePollController extends PollTrackerController {
 
 	@Override
 	public void refresh() {
-		// Printing to the console to let the programmer know that this part is running
-		System.out.println("In refresh");
-	
 		// Creating a new array of strings to hold poll names for the choicebox 
 		String[] values = new String[getPollList().getPolls().length + 1];
 		
