@@ -118,21 +118,6 @@ public class SetupPartyController extends PollTrackerController {
     	
     	
     }
-
-   /*
-    @FXML
-    void PartyNameTyped(ActionEvent event) {
-
-    }
-
-	ObservableList<String> controllerGetPartyNames() {
-		return partyNames;
-	}
-
-	void controllerSetPartyNames(ObservableList<String> partyNames) {
-		this.partyNames = partyNames;
-	}
-	*/
 	
 	@FXML
 	/**
