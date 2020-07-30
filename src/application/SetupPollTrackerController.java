@@ -7,6 +7,16 @@ import model.PollList;
 import model.Factory;
 import model.Poll;
 
+/**
+ * Public Class: SetupPollTrackerController
+ * This class acts as the controller for the related
+ * SetupPollTrackerView fxml file. When data is entered into the
+ * text fields and the buttons are pressed, the fields will either
+ * be cleared or be inputted into the PollList and Factory objects
+ * in the polltrackerapp class.
+ * @author colec
+ *
+ */
 public class SetupPollTrackerController extends PollTrackerController{
 
     @FXML
@@ -24,15 +34,28 @@ public class SetupPollTrackerController extends PollTrackerController{
     @FXML
     private TextField numOfPollsEntry;
 
+    /**
+     * public method clearEntries
+     * This simple method is triggered by the clearButton control
+     * when the button is pressed, the refresh method is called, wiping
+     * the entered data from the text fields
+     * @param event
+     */
     @FXML
-    void clearEntries(ActionEvent event) {
-    	numOfSeatsEntry.clear();
-    	numOfPartiesEntry.clear();
-    	numOfPollsEntry.clear();
+    public void clearEntries(ActionEvent event) {
+    	refresh();
     }
 
+    
+    /**
+     * public method submitEntries
+     * This method takes the entries inputted into the textfields and
+     * sets them as the values of a new blank poll list and factory.
+     * The objects in polltrackerapp are then set to these new instances.
+     * @param event
+     */
     @FXML
-    void submitEntries(ActionEvent event) {
+    public void submitEntries(ActionEvent event) {
     	int numPolls = Integer.parseInt(numOfPollsEntry.getText());
     	int numParties = Integer.parseInt(numOfPartiesEntry.getText());
     	int numSeats = Integer.parseInt(numOfSeatsEntry.getText());
@@ -48,7 +71,6 @@ public class SetupPollTrackerController extends PollTrackerController{
     	setPollList(polllist);
     	
     	Factory factory = new Factory(numSeats);
-    	
     	String[] parties = new String[numParties];
     	
     	for (int i = 0; i < parties.length; i++) {
@@ -59,6 +81,11 @@ public class SetupPollTrackerController extends PollTrackerController{
     	setFactory(factory);
     }
 
+    /**
+     * public override method refresh
+     * this function simply clears the text fields
+     * in the display window and allows the user to enter new values.
+     */
 	@Override
 	public void refresh() {
 		numOfSeatsEntry.clear();
