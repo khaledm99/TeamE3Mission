@@ -16,14 +16,14 @@
       </ChoiceBox>
    </top>
    <left>
-      <PieChart fx:id="mySeatPieChart" title="Projected Seats">
+      <PieChart fx:id="mySeatPieChart" title="Projected Seats" BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
       </PieChart>
    </left>
    <right>
-      <PieChart fx:id="myVotePieChart" title="Projected Percentage of Votes">
+      <PieChart fx:id="myVotePieChart" title="Projected Percentage of Votes" BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
