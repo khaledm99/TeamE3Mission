@@ -1,6 +1,8 @@
 package application;
 
 import javafx.beans.value.ChangeListener;
+
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,6 +16,12 @@ import javafx.scene.paint.Color;
 import model.Party;
 
 import java.util.Random;
+/**
+ *EditPollController class for the pollTrackerApp
+ *for Assignment 2 CPSC 233
+ *@author Xavier Lewis
+ * imported neccesary classes above
+ */
 
 public class EditPollController extends PollTrackerController{
 
@@ -45,7 +53,11 @@ public class EditPollController extends PollTrackerController{
     @FXML
     private Label PollUpdatedLabel;
     
-    
+    /**
+     * Above are private instances created in the Scene Builder
+     * @param event On Mouseclicked a empty list is created to replace the dropdown display list
+     * The rest of the fields are refreshed
+     */
     @FXML
     void clearClicked(MouseEvent event) {  	
     	String [] emptyList = new String[0];
@@ -70,11 +82,18 @@ public class EditPollController extends PollTrackerController{
     }
 
 	@Override
+	/**
+	 * Refresh() abstract method called after initialize and runs after Update button is clicked
+	 * or clear is clicked, or when switching between tabs
+	 */
 	public void refresh() {	
 		
 		PollUpdatedLabel.setOpacity(0.0);
 		ProNumOfSeatsTextField.setText("");
 		ProPercVotesTextField.setText("");
+		/**
+		 * pollNames[] is set as the dropdown menu for the PollToUpdate choicebox 
+		 */
     	String[] pollNames = new String[getPollList().getPolls().length];
     	int i = 0;
     	while (i< getPollList().getPolls().length) {
@@ -84,6 +103,11 @@ public class EditPollController extends PollTrackerController{
     	}
     	
     	PollToEditDropdown.setItems(FXCollections.observableArrayList(pollNames));
+    	/**
+    	 * Listener added to monitor which poll is selected and if that selection changes 
+    	 * in order to update the parties available to update. This code will look very similar to the lecture demo example 
+    	 * and functions similarly
+    	 */
     	PollToEditDropdown.getSelectionModel().selectedIndexProperty().addListener(
     			new ChangeListener<Number>() {
     				
@@ -100,9 +124,17 @@ public class EditPollController extends PollTrackerController{
     								
     								partyNames[i] = getPollList().getPolls()[index].getPartiesSortedByVotes()[i] + "" ;
     						    	//System.out.println(getPollList().getPolls()[index].getPartiesSortedByVotes()[i].getProjectedPercentageOfVotes());
+    						    	/**
+    						    	 * On mouseClicked on the Update button, the current poll is accessed, the parties are accessed sorted by votes
+    						    	 * Whichever index the selected party is at has it's seats set first, then votes as the parties are accessed by order of votes for each
+    						    	 * run of the setOnAction.
+    						    	 */
     						    	UpdatePartyButton.setOnAction((event) -> {
-  
-    						   			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));		
+    						    		/**
+    						    		 * 
+    						    		 */
+    						   			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
+    						   			    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));		
     						    		Party selectedParty = getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()];
     						   			float percVotes = Float.valueOf(ProPercVotesTextField.getText());
     						   			if (percVotes > 0 && percVotes <= 100){
@@ -112,10 +144,18 @@ public class EditPollController extends PollTrackerController{
     						   			
     						    		getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);  						    	
     						    		refresh();
-    			    				 	ProNumOfSeatsTextField.clear();
+    			    				 	/**
+    			    				 	 * After the seats and votes are set in the poll list the controller runs refresh() and clears all fields and choiceBoxes
+    			    				 	 */
+    						    		ProNumOfSeatsTextField.clear();
     			    					ProPercVotesTextField.clear();
     			    					String [] emptyList = new String[0];
     			    					PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(emptyList));
+    			    					/**
+    			    					 * To improve user interface readability (and for the bonus) each time a party is updated 
+    			    					 * the party with it's new vote and seat values is displayed at the top of the window, in a random
+    			    					 * colour each time to indicate a new party has been updated. The label is made visible until clear or refresh is called.
+    			    					 */
     			    					Random random = new Random();
     			    					int r = random.nextInt(255);
     			    					int g = random.nextInt(255);
@@ -125,7 +165,10 @@ public class EditPollController extends PollTrackerController{
         			    				+ (int)(selectedParty.getProjectedPercentageOfVotes()*100)  + "%, " + (int) selectedParty.getProjectedNumberOfSeats() + " Seats) ");    			    				    			    					
     			    					PollUpdatedLabel.setTextFill(c);
     						    		PollUpdatedLabel.setOpacity(1);	
-    						    	});     						    		  						    	   						    	
+    						    	});     
+    						    	/*
+    						    	 * this marks the end of the actionEvent of UpdateParty being clicked
+    						    	 */
     							}
     							
     							i++;
