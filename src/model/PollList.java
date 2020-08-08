@@ -62,6 +62,7 @@ public class PollList {
 	 */
 	public void addPoll(Poll aPoll) throws PollListFullException {
 
+		int counter = 0;
 		
 		// Checks if the Poll argument is null. If it is, print an error and does not add the poll.
 		if (aPoll != null) {	
@@ -70,12 +71,20 @@ public class PollList {
 				if (polls[index] == null || polls[index].getPollName().toLowerCase().contains(aPoll.getPollName().toLowerCase())) {
 					polls[index] = aPoll;
 					index = polls.length;
-				} 
+				} else {
+					counter++;
+				}
+
 			}
 
 		} else {
 			System.out.println("Error: The aPoll argument value is null. The poll did not change.");
 		}
+		
+		if (counter != polls.length) {
+			throw new PollListFullException();
+		}
+		
 	}	
 		
 	/**
