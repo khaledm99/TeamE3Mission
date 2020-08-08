@@ -58,8 +58,10 @@ public class PollList {
 	/**
 	 * addPoll method. This method adds a Poll object to the Poll array in PollList. Does not return anything.
 	 * @param aPoll: Poll object
+	 * @throws PollListFullException 
 	 */
-	public void addPoll(Poll aPoll) {
+	public void addPoll(Poll aPoll) throws PollListFullException {
+
 		
 		// Checks if the Poll argument is null. If it is, print an error and does not add the poll.
 		if (aPoll != null) {	

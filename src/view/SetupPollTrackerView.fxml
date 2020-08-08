@@ -48,6 +48,7 @@
                </GridPane.margin>
             </Button>
             <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitEntries" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="ErrorLabel0" prefHeight="17.0" prefWidth="292.0" textFill="RED" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

@@ -19,6 +19,7 @@ import model.Factory;
 import model.Party;
 import model.Poll;
 import model.PollList;
+import model.PollListFullException;
 
 public class TextApplication {
 	
@@ -149,7 +150,12 @@ public class TextApplication {
 			}
 			
 			for (int index = 0; index < pollList.length; index++) {
-				polls.addPoll(pollList[index]);
+				try {
+					polls.addPoll(pollList[index]);
+				} catch (PollListFullException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 				

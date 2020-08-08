@@ -213,7 +213,12 @@ public class Factory {
 		int pollNamer = 1;
 		for(int i = 0; i < numOfPolls; i++) {
 			Poll newPoll = createRandomPoll("poll" + pollNamer);
-			pollList.addPoll(newPoll);
+			try {
+				pollList.addPoll(newPoll);
+			} catch (PollListFullException e) {
+				System.out.println("PollList is full.");
+				e.printStackTrace();
+			}
 			pollNamer ++;
 		}
 		

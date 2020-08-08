@@ -2,8 +2,10 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.PollList;
+import model.PollListFullException;
 import model.Factory;
 import model.Poll;
 
@@ -33,6 +35,9 @@ public class SetupPollTrackerController extends PollTrackerController{
   
     @FXML
     private TextField numOfPollsEntry;
+    
+    @FXML
+    private Label ErrorLabel0;
 
     /**
      * public method clearEntries
@@ -64,7 +69,12 @@ public class SetupPollTrackerController extends PollTrackerController{
     	int nameCounter = 1;
     	for (int i = 0; i < numPolls; i++) {
     		Poll poll = new Poll("Poll" + nameCounter, numSeats);
-    		polllist.addPoll(poll);
+    		try {
+				polllist.addPoll(poll);
+			} catch (PollListFullException e) {
+				e.printStackTrace();
+				ErrorLabel0.setText("Error: PollList is full. Cannot add to PollList.");
+			}
     		nameCounter++;
     	}
     	
@@ -91,6 +101,7 @@ public class SetupPollTrackerController extends PollTrackerController{
 		numOfSeatsEntry.clear();
     	numOfPartiesEntry.clear();
     	numOfPollsEntry.clear();
+    	ErrorLabel0.setText("");
 	}
 
 }
