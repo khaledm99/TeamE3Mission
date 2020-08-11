@@ -1,6 +1,6 @@
 package model;
 
-
+import application.InvalidPartyDataException;
 
 /**
  * Classname: Party
@@ -36,9 +36,9 @@ public class Party {
 	}
 	
 	//Projected number of seats setter
-	public void setProjectedNumberOfSeats (float ProjectedNrs) {
+	public void setProjectedNumberOfSeats (float ProjectedNrs) throws InvalidPartyDataException {
 		if(ProjectedNrs < 0.0) {
-			System.out.println("ERROR: Cannot enter negative numbers");
+			throw new InvalidPartyDataException("ERROR: Cannot enter negative numbers");
 		}
 		else {
 			this.projectedNumberOfSeats = ProjectedNrs;
@@ -51,9 +51,9 @@ public class Party {
 	}
 	
 	//Projected percentage of votes setter
-	public void setProjectedPercentageOfVotes(float ProjectedPercentage) {
+	public void setProjectedPercentageOfVotes(float ProjectedPercentage) throws InvalidPartyDataException {
 		if(ProjectedPercentage < 0.0 || ProjectedPercentage > 1.000) {
-			System.out.println("ERROR: Cannot enter a percentage less than zero or greater than 1");
+			throw new InvalidPartyDataException("ERROR: Cannot enter a percentage less than zero or greater than 1");
 		}
 		else {
 			this.projectedPercentageOfVotes = ProjectedPercentage;
@@ -84,20 +84,30 @@ public class Party {
 	 * The number of seats should be at least 0 or greater. If not set to 0. 
 	 * The percentage should be 0 or less than equal to 1. If not set to 0. 
 	 */
-	public Party (String givenPartyName, float numberOfSeats, float percentage) {
+	public Party (String givenPartyName, float numberOfSeats, float percentage) throws InvalidPartyDataException  {
 		this.name = givenPartyName;
 		
 		if(numberOfSeats < 0.0) {
-			System.out.println("ERROR: Cannot enter negative numbers");
+			
+			//?????????????????????????????
 			this.projectedNumberOfSeats = 0;
+			
+			throw new InvalidPartyDataException("ERROR: Cannot enter negative numbers");
+			
+			
 		}
 		else {
 			this.projectedNumberOfSeats = numberOfSeats;
 		}
 		
 		if(percentage < 0.0 || percentage > 1.0) {
-			System.out.println("ERROR: Cannot enter a percentage less than zero or greater than 1");
+			
+			//?????????????????????????????????????
 			this.projectedPercentageOfVotes = 0;
+	
+			throw new InvalidPartyDataException("ERROR: Cannot enter a percentage less than zero or greater than 1");
+			
+			
 		}
 		
 		else {

@@ -2,6 +2,8 @@ package model;
 
 import java.util.Random;
 
+import application.InvalidPartyDataException;
+
 /**
  * <h1>The Factory Class</h1>
  * The Factory class implements all other classes
@@ -67,7 +69,7 @@ public class Factory {
 		}
 		partyNames = new String[] {"NDP","Liberal","CPC","Green","PPC","Rhinoceros"};
 	}
-	
+
 	/**
 	 * <h1>Creating a Random Party</h1>
 	 * The first method for generating data takes as arguments
@@ -97,15 +99,35 @@ public class Factory {
 			}
 			
 			Party party = new Party(name);
-			party.setProjectedNumberOfSeats(randSeats);
-			party.setProjectedPercentageOfVotes(randPercent / 100);
+			
+			try {
+				
+				party.setProjectedNumberOfSeats(randSeats);
+				
+				party.setProjectedPercentageOfVotes(randPercent / 100);
+				
+			} catch (InvalidPartyDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return party;
 			
 		} else {
 			System.out.println("Error. Cannot have null name or negative seats/votes");
 			Party party = new Party("party");
-			party.setProjectedNumberOfSeats(0);
-			party.setProjectedPercentageOfVotes(0);
+			
+			
+			try {
+				party.setProjectedNumberOfSeats(0);
+				
+				party.setProjectedPercentageOfVotes(0);
+				
+			} catch (InvalidPartyDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return party;
 		}
 	}
@@ -156,7 +178,17 @@ public class Factory {
 			winRandomizerList[i] = newParty;
 		}
 		
-		Party lastParty = new Party((partyNames[partyNames.length - 1]), remainingSeats, (remainingPercent / 100f));
+		Party lastParty = null;
+		
+		try {
+			lastParty = new Party((partyNames[partyNames.length - 1]), remainingSeats, (remainingPercent / 100f));
+		} catch (InvalidPartyDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
 		winRandomizerList[winRandomizerList.length - 1] = lastParty;
 		Party[] finalResults = randomizeWinner(winRandomizerList);
 		for(int i = 0; i < partyNames.length; i++) {
@@ -187,7 +219,14 @@ public class Factory {
 		// Now each set of party data is re-assigned the name that matches its index in partyNames
 		Party[] listWithCorrectNames = new Party[partyList.length];
 		for (int i = 0; i < partyList.length; i++) {
-			listWithCorrectNames[i] = new Party(partyNames[i], partyList[i].getProjectedNumberOfSeats(), partyList[i].getProjectedPercentageOfVotes());
+			
+			try {
+				listWithCorrectNames[i] = new Party(partyNames[i], partyList[i].getProjectedNumberOfSeats(), partyList[i].getProjectedPercentageOfVotes());
+			} catch (InvalidPartyDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 		
 		return listWithCorrectNames;
