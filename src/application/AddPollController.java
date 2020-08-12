@@ -28,7 +28,7 @@ public class AddPollController extends PollTrackerController{
     private TextField PollToAdd; // Textfield to enter poll name
 
     @FXML
-    private ChoiceBox PollPlacement; // Choice box to choose a poll to replace
+    private ChoiceBox<String> PollPlacement; // Choice box to choose a poll to replace
 
     @FXML
     private Button AddButton; // Button to add poll to poll list

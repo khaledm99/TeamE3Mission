@@ -20,7 +20,7 @@ import java.util.Random;
  *EditPollController class for the pollTrackerApp
  *for Assignment 2 CPSC 233
  *@author Xavier Lewis
- * imported neccesary classes above
+ * imported necessary classes above
  */
 
 public class EditPollController extends PollTrackerController{
