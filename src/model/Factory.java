@@ -3,6 +3,7 @@ package model;
 import java.util.Random;
 
 import application.InvalidPartyDataException;
+import application.PollFullException;
 
 /**
  * <h1>The Factory Class</h1>
@@ -192,7 +193,11 @@ public class Factory {
 		winRandomizerList[winRandomizerList.length - 1] = lastParty;
 		Party[] finalResults = randomizeWinner(winRandomizerList);
 		for(int i = 0; i < partyNames.length; i++) {
-			poll.addParty(finalResults[i]);
+			try {
+				poll.addParty(finalResults[i]);
+			} catch (PollFullException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return poll;
