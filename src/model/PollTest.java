@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import application.InvalidPartyDataException;
-import application.PollFullException;
+import model.PollFullException;
 
 public class PollTest {
 	class MockParty extends Party {

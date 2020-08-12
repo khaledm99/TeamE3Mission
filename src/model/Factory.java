@@ -3,7 +3,7 @@ package model;
 import java.util.Random;
 
 import application.InvalidPartyDataException;
-import application.PollFullException;
+import model.PollFullException;
 
 /**
  * <h1>The Factory Class</h1>

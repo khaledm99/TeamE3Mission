@@ -1,8 +1,7 @@
 package model;
 
 import application.InvalidPartyDataException;
-import application.PollFullException;
-
+import model.PollFullException;
 /**
  * Classname: PollList
  * 

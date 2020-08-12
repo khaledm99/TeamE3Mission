@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-import application.PollFullException;
+import model.PollFullException;
 /**
  * Poll class for the CPSC 233 Assignment 1
  * Contents are encapsulated and the skeleton modified 
