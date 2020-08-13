@@ -20,7 +20,7 @@ import java.util.Random;
  *EditPollController class for the pollTrackerApp
  *for Assignment 2 CPSC 233
  *@author Xavier Lewis
- * imported necessary classes above
+ * imported neccesary classes above
  */
 
 public class EditPollController extends PollTrackerController{
@@ -52,10 +52,6 @@ public class EditPollController extends PollTrackerController{
     
     @FXML
     private Label PollUpdatedLabel;
-    
-    @FXML
-    private Label errorLabel;
-    
     
     /**
      * Above are private instances created in the Scene Builder
@@ -137,18 +133,8 @@ public class EditPollController extends PollTrackerController{
     						    		/**
     						    		 * 
     						    		 */
-    						    		
-    						   			try {
-											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
-											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
-											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
-											
-										}	
-    						   			
-    						   			
+    						   			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
+    						   			    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));		
     						    		Party selectedParty = getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()];
     						   			float percVotes = Float.valueOf(ProPercVotesTextField.getText());
     						   			if (percVotes > 0 && percVotes <= 100){
@@ -156,16 +142,7 @@ public class EditPollController extends PollTrackerController{
     						   				percVotes = percVotes/100;
     						   			}
     						   			
-    						    		try {
-											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
-											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
-										}  						    	
-    						    		
-    						    		
-    						    		
+    						    		getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);  						    	
     						    		refresh();
     			    				 	/**
     			    				 	 * After the seats and votes are set in the poll list the controller runs refresh() and clears all fields and choiceBoxes

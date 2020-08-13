@@ -18,9 +18,7 @@ import java.util.Scanner;
 import model.Factory;
 import model.Party;
 import model.Poll;
-import model.PollFullException;
 import model.PollList;
-import model.PollListFullException;
 
 public class TextApplication {
 	
@@ -126,12 +124,7 @@ public class TextApplication {
 				System.out.println("Enter data for poll " + pollIndex+ ": ");
 				pollList[pollIndex] = new Poll("Poll" + pollIndex, nameList.length);
 				for (int nameIndex = 0; nameIndex<nameList.length; nameIndex++) {
-					try {
-						pollList[pollIndex].addParty(new Party(nameList[nameIndex]));
-					} catch (PollFullException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					pollList[pollIndex].addParty(new Party(nameList[nameIndex]));
 				}
 				
 				// Retrieves a sorted array of parties
@@ -144,39 +137,19 @@ public class TextApplication {
 					float projSeats = projSeatsInp.nextFloat();
 					System.out.println("What is the projected percentage of votes (in decimal form)?");
 					float projVotes = projVotesInp.nextFloat();
-					try {
-						parties[nameIndex].setProjectedNumberOfSeats(projSeats);
-					} catch (InvalidPartyDataException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						parties[nameIndex].setProjectedPercentageOfVotes(projVotes);
-					} catch (InvalidPartyDataException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					parties[nameIndex].setProjectedNumberOfSeats(projSeats);
+					parties[nameIndex].setProjectedPercentageOfVotes(projVotes);
 					
 					
 				}
 				// Fills polls with the sorted and data-filled parties
 				for (int partyIndex = 0; partyIndex < parties.length; partyIndex++) {
-					try {
-						pollList[pollIndex].addParty(parties[partyIndex]);
-					} catch (PollFullException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					pollList[pollIndex].addParty(parties[partyIndex]);
 				}
 			}
 			
 			for (int index = 0; index < pollList.length; index++) {
-				try {
-					polls.addPoll(pollList[index]);
-				} catch (PollListFullException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				polls.addPoll(pollList[index]);
 			}
 			
 				

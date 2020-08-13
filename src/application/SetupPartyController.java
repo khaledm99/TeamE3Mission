@@ -30,12 +30,9 @@ public class SetupPartyController extends PollTrackerController {
 	
 	private ArrayList<String> originalPartyNames = new ArrayList<String>();
 	private ObservableList<String> partyNames = FXCollections.observableArrayList(); 
-	
-
-	
-	private String [] factoryPartyNames =  getFactory().getPartyNames();
-	
-	
+	private Factory currentFactory = new Factory(345);
+	private String [] factoryPartyNames = currentFactory.getPartyNames();
+			
 	private int size = factoryPartyNames.length;
 	
 		
@@ -141,10 +138,7 @@ public class SetupPartyController extends PollTrackerController {
 	
 	@Override
 	public void refresh() {
-		
-		
-	
-		
+
 		
 		// TODO Auto-generated method stub
 		

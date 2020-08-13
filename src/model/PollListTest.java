@@ -1,12 +1,8 @@
-package model;
-
 
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import application.InvalidPartyDataException;
 
 public class PollListTest {
 	class PollMock extends Poll {
@@ -38,18 +34,8 @@ public class PollListTest {
 		
 		public PartyMock(String partyName, float seats, float votes) {
 			super(partyName);
-			try {
-				setProjectedNumberOfSeats(seats);
-			} catch (InvalidPartyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				setProjectedPercentageOfVotes(votes);
-			} catch (InvalidPartyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			setProjectedNumberOfSeats(seats);
+			setProjectedPercentageOfVotes(votes);
 		}
 	}
 
@@ -98,12 +84,7 @@ public class PollListTest {
 		Poll p = new PollMock("test", 5);
 		PollList pl = new PollList(5, 20);
 		
-		try {
-			pl.addPoll(p);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p);
 		
 		assertEquals("Added poll to empty list, expected first poll in list to the poll added.", p, pl.getPolls()[0]);
 		assertNull("Added poll to empty list, expected second poll in list to be null.", pl.getPolls()[1]);
@@ -118,18 +99,8 @@ public class PollListTest {
 		Poll p = new PollMock("test", 5);
 		PollList pl = new PollList(5, 20);
 		
-		try {
-			pl.addPoll(p);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			pl.addPoll(null);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p);
+		pl.addPoll(null);
 		
 		assertEquals("Added null, should leave list unchanged.  testing index 0.", p, pl.getPolls()[0]);
 		assertNull("Added null, should leave list unchanged.  testing index 1.", pl.getPolls()[1]);
@@ -146,24 +117,9 @@ public class PollListTest {
 		Poll p3 = new PollMock("test3", 3);
 		PollList pl = new PollList(3, 45);
 		
-		try {
-			pl.addPoll(p1);
-		} catch (PollListFullException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			pl.addPoll(p2);
-		} catch (PollListFullException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			pl.addPoll(p3);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p1);
+		pl.addPoll(p2);
+		pl.addPoll(p3);
 		
 		assertEquals("Added three polls to fill the list of size 3.  Testing poll at index 0", p1, pl.getPolls()[0]);
 		assertEquals("Added three polls to fill the list of size 3.  Testing poll at index 1", p2, pl.getPolls()[1]);
@@ -177,32 +133,12 @@ public class PollListTest {
 		Poll p3 = new PollMock("test3", 3);
 		PollList pl = new PollList(3, 45);
 		
-		try {
-			pl.addPoll(p1);
-		} catch (PollListFullException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			pl.addPoll(p2);
-		} catch (PollListFullException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			pl.addPoll(p3);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p1);
+		pl.addPoll(p2);
+		pl.addPoll(p3);
 		
 		Poll p4 = new PollMock("duplicate", 234);
-		try {
-			pl.addPoll(p4);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p4);
 		
 		assertEquals("First poll in list should have been replaced when adding duplicate", p4, pl.getPolls()[0]);
 		assertEquals("First should have been replaced but second element at index 1 should have been unchanged.  Testing poll at index 1", p2, pl.getPolls()[1]);
@@ -216,32 +152,12 @@ public class PollListTest {
 		Poll p3 = new PollMock("test3", 3);
 		PollList pl = new PollList(3, 45);
 		
-		try {
-			pl.addPoll(p1);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			pl.addPoll(p2);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			pl.addPoll(p3);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p1);
+		pl.addPoll(p2);
+		pl.addPoll(p3);
 		
 		Poll p4 = new PollMock("duplicate", 234);
-		try {
-			pl.addPoll(p4);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p4);
 		
 		assertEquals("Second poll in list should have been replaced when adding duplicate", p4, pl.getPolls()[1]);
 		assertEquals("Second should have been replaced but first element at index 0 should have been unchanged.  Testing poll at index 0", p1, pl.getPolls()[0]);
@@ -255,32 +171,12 @@ public class PollListTest {
 		Poll p3 = new PollMock("Duplicate", 3);
 		PollList pl = new PollList(3, 45);
 		
-		try {
-			pl.addPoll(p1);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			pl.addPoll(p2);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			pl.addPoll(p3);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p1);
+		pl.addPoll(p2);
+		pl.addPoll(p3);
 		
 		Poll p4 = new PollMock("duplicate", 234);
-		try {
-			pl.addPoll(p4);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p4);
 		
 		assertEquals("Last poll in list should have been replaced when adding duplicate (if comparing case insensitive)", p4, pl.getPolls()[2]);
 		assertEquals("Last should have been replaced but first element at index 0 should have been unchanged.  Testing poll at index 0", p1, pl.getPolls()[0]);
@@ -293,20 +189,13 @@ public class PollListTest {
 		Poll p2 = new PollMock("test2", 2);
 		Poll p3 = new PollMock("test3", 3);
 		PollList pl = new PollList(3, 45);
-		try {
-			pl.addPoll(p1);
-			pl.addPoll(p2);
-			pl.addPoll(p3);
-		} catch (PollListFullException e) {
-			e.printStackTrace();
-		}
+		
+		pl.addPoll(p1);
+		pl.addPoll(p2);
+		pl.addPoll(p3);
+		
 		Poll p4 = new PollMock("duplicate", 234);
-		try {
-			pl.addPoll(p4);
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pl.addPoll(p4);
 		
 		assertEquals("Adding fourth poll to full list should leave list unchanged.  Testing at index 0.", p1, pl.getPolls()[0]);
 		assertEquals("Adding fourth poll to full list should leave list unchanged.  Testing at index 1.", p2, pl.getPolls()[1]);
@@ -345,13 +234,9 @@ public class PollListTest {
 		p3.nextIndex = 2;
 		
 		PollList pl = new PollList(3,400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		Party actual = pl.getAveragePartyData("zero");
 		
@@ -392,13 +277,9 @@ public class PollListTest {
 		p3.nextIndex = 0;
 		
 		PollList pl = new PollList(3,400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		Party actual = pl.getAveragePartyData("one");
 		
@@ -439,13 +320,9 @@ public class PollListTest {
 		p3.nextIndex = 0;
 		
 		PollList pl = new PollList(3,400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		Party actual = pl.getAveragePartyData("one");
 		
@@ -485,13 +362,9 @@ public class PollListTest {
 		p3.nextIndex = 2;
 		
 		PollList pl = new PollList(3,400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		String[] partyNames = {"zero","one","two"};
 		
@@ -551,13 +424,9 @@ public class PollListTest {
 		p3.nextIndex = 2;
 		
 		PollList pl = new PollList(3,400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		String[] partyNames = {"zero","one","two"};
 		
@@ -631,14 +500,10 @@ public class PollListTest {
 		
 		
 		PollList pl = new PollList(4, 400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
 		pl.addPoll(p4);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		String[] partyNames = {"zero","one","two","three"};
 		
@@ -717,14 +582,10 @@ public class PollListTest {
 		
 		
 		PollList pl = new PollList(4, 400);
-		try {
 		pl.addPoll(p1);
 		pl.addPoll(p2);
 		pl.addPoll(p3);
 		pl.addPoll(p4);
-		} catch(PollListFullException e) {
-			e.printStackTrace();
-		}
 		
 		String[] partyNames = {"zero","one","two","three"};
 		
