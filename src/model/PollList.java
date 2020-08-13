@@ -63,7 +63,7 @@ public class PollList {
 	 * @param aPoll: Poll object
 	 * @throws PollListFullException 
 	 */
-	public void addPoll(Poll aPoll) throws PollListFullException {
+	public void addPoll(Poll aPoll)  {
 
 		int counter = 0;
 		
@@ -83,10 +83,10 @@ public class PollList {
 		} else {
 			System.out.println("Error: The aPoll argument value is null. The poll did not change.");
 		}
-		
-		if (counter != polls.length) {
-			throw new PollListFullException();
-		}
+//		
+//		if (counter != polls.length) {
+//			throw new PollListFullException();
+//		}
 		
 	}	
 		

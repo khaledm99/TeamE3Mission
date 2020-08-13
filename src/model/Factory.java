@@ -246,8 +246,9 @@ public class Factory {
 	 * @author colec
 	 * @param numOfPolls
 	 * @return
+	 * @throws PollListFullException 
 	 */
-	public PollList createRandomPollList(int numOfPolls) {
+	public PollList createRandomPollList(int numOfPolls)  {
 		if (numOfPolls < 0) {
 			System.out.println("Error. Number of Polls cannot be negative");
 			numOfPolls = 0;
@@ -257,12 +258,12 @@ public class Factory {
 		int pollNamer = 1;
 		for(int i = 0; i < numOfPolls; i++) {
 			Poll newPoll = createRandomPoll("poll" + pollNamer);
-			try {
+//			try {
 				pollList.addPoll(newPoll);
-			} catch (PollListFullException e) {
-				System.out.println("PollList is full.");
-				e.printStackTrace();
-			}
+//			} catch (PollListFullException e) {
+//				System.out.println("PollList is full.");
+//				e.printStackTrace();
+//			}
 			pollNamer ++;
 		}
 		
