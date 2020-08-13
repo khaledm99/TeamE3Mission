@@ -30,10 +30,15 @@ public class SetupPartyController extends PollTrackerController {
 	
 	private ArrayList<String> originalPartyNames = new ArrayList<String>();
 	private ObservableList<String> partyNames = FXCollections.observableArrayList(); 
-	private Factory currentFactory = new Factory(345);
-	private String [] factoryPartyNames = currentFactory.getPartyNames();
-			
-	private int size = factoryPartyNames.length;
+	
+	private ArrayList<String> givenPartyNames = new ArrayList<String>();
+	
+	private int partyNameArraySize;
+	
+	//private String [] factoryPartyNames =  getFactory().getPartyNames();
+	
+	
+	//private int size = factoryPartyNames.length;
 	
 		
     @FXML
@@ -86,8 +91,8 @@ public class SetupPartyController extends PollTrackerController {
     
     @FXML
     void SubmitPartyInfoClicked(ActionEvent event) {
-    	String [] finalPartyNames = new String [size];
-    	for (int i = 0; i < size; i++) {
+    	String [] finalPartyNames = new String [partyNameArraySize];
+    	for (int i = 0; i < partyNameArraySize; i++) {
     		finalPartyNames[i] = partyNames.get(i);
     	}
     	
@@ -113,7 +118,7 @@ public class SetupPartyController extends PollTrackerController {
 	@FXML
 	void initialize() {
 		
-		partyNames = populateObervableList(factoryPartyNames);
+		partyNames = populateObervableList(givenPartyNames);
 		
 		PartyNameComboBox.setItems(partyNames);
 	}
@@ -124,12 +129,12 @@ public class SetupPartyController extends PollTrackerController {
 	 * @param defaultPartynames
 	 * @return partyNames an observable list filled with party name strings
 	 */
-	private ObservableList<String> populateObervableList (String [] defaultPartynames) {
+	private ObservableList<String> populateObervableList (ArrayList<String> givenDefaultPartynames) {
 		
 		//for loop to add party names to the observable list as well the arraylist which holds the original party names
-		for(int i = 0; i < size; i++) {
-			partyNames.add(defaultPartynames[i]);
-			originalPartyNames.add(i,defaultPartynames[i]);
+		for(int i = 0; i < partyNameArraySize; i++) {
+			partyNames.add(givenDefaultPartynames.get(i));
+			originalPartyNames.add(i,givenDefaultPartynames.get(i));
 		}
 		
 		return partyNames;
@@ -138,7 +143,12 @@ public class SetupPartyController extends PollTrackerController {
 	
 	@Override
 	public void refresh() {
-
+		
+		partyNameArraySize = getFactory().getPartyNames().length;
+		
+		for (int i = 0; i < partyNameArraySize; i++) {
+			givenPartyNames.add(getFactory().getPartyNames()[i]);
+		}
 		
 		// TODO Auto-generated method stub
 		
