@@ -86,7 +86,7 @@ public class Factory {
 	 * @param maxPercent
 	 * @return
 	 */
-	public Party createRandomParty(String name, int maxSeats, int maxPercent) {
+	public Party createRandomParty(String name, int maxSeats, int maxPercent) throws InvalidPartyDataException{
 		Random rand = new Random();
 		if (name != null && maxSeats >= 0 && maxPercent >= 0) {
 			float randSeats = rand.nextInt(maxSeats + 1);
@@ -161,7 +161,7 @@ public class Factory {
 	 * @param name
 	 * @return
 	 */
-	public Poll createRandomPoll(String name) {
+	public Poll createRandomPoll(String name) throws InvalidPartyDataException {
 		if (name == null) {
 			name = "poll";
 			System.out.println("Error. Poll name cannot be null.");
@@ -246,8 +246,9 @@ public class Factory {
 	 * @author colec
 	 * @param numOfPolls
 	 * @return
+	 * @throws InvalidPartyDataException 
 	 */
-	public PollList createRandomPollList(int numOfPolls) {
+	public PollList createRandomPollList(int numOfPolls) throws InvalidPartyDataException {
 		if (numOfPolls < 0) {
 			System.out.println("Error. Number of Polls cannot be negative");
 			numOfPolls = 0;

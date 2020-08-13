@@ -84,9 +84,9 @@ public class PollList {
 			System.out.println("Error: The aPoll argument value is null. The poll did not change.");
 		}
 		
-		if (counter != polls.length) {
-			throw new PollListFullException();
-		}
+//		if (counter != polls.length) {
+//			throw new PollListFullException();
+//		}
 		
 	}	
 		
