@@ -3,6 +3,7 @@ package model;
 import java.util.Random;
 
 import application.InvalidPartyDataException;
+import application.PollListFullException;
 import model.PollFullException;
 
 /**
@@ -258,12 +259,12 @@ public class Factory {
 		int pollNamer = 1;
 		for(int i = 0; i < numOfPolls; i++) {
 			Poll newPoll = createRandomPoll("poll" + pollNamer);
-//			try {
+			try {
 				pollList.addPoll(newPoll);
-//			} catch (PollListFullException e) {
-//				System.out.println("PollList is full.");
-//				e.printStackTrace();
-//			}
+			} catch (PollListFullException e) {
+				System.out.println("PollList is full.");
+				e.printStackTrace();
+			}
 			pollNamer ++;
 		}
 		
