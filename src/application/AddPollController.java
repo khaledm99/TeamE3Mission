@@ -28,7 +28,7 @@ public class AddPollController extends PollTrackerController{
     private TextField PollToAdd; // Textfield to enter poll name
 
     @FXML
-    private ChoiceBox<String> PollPlacement; // Choice box to choose a poll to replace
+    private ChoiceBox PollPlacement; // Choice box to choose a poll to replace
 
     @FXML
     private Button AddButton; // Button to add poll to poll list
@@ -46,10 +46,9 @@ public class AddPollController extends PollTrackerController{
      * addClick method. Takes the user input in the choice box
      * and text field and adds the poll upon clicking the add button.
      * @param event
-     * @throws InvalidPartyDataException 
      */
     @FXML
-    void addClick(ActionEvent event) throws InvalidPartyDataException {
+    void addClick(ActionEvent event) {
     	String pollName = PollToAdd.getText();
     	PollList pollList = super.getPollList();
     	Poll[] polls = pollList.getPolls();

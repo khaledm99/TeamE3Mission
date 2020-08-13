@@ -2,9 +2,6 @@ package model;
 
 import java.util.Random;
 
-import application.InvalidPartyDataException;
-import model.PollFullException;
-
 /**
  * <h1>The Factory Class</h1>
  * The Factory class implements all other classes
@@ -70,7 +67,7 @@ public class Factory {
 		}
 		partyNames = new String[] {"NDP","Liberal","CPC","Green","PPC","Rhinoceros"};
 	}
-
+	
 	/**
 	 * <h1>Creating a Random Party</h1>
 	 * The first method for generating data takes as arguments
@@ -86,7 +83,7 @@ public class Factory {
 	 * @param maxPercent
 	 * @return
 	 */
-	public Party createRandomParty(String name, int maxSeats, int maxPercent) throws InvalidPartyDataException{
+	public Party createRandomParty(String name, int maxSeats, int maxPercent) {
 		Random rand = new Random();
 		if (name != null && maxSeats >= 0 && maxPercent >= 0) {
 			float randSeats = rand.nextInt(maxSeats + 1);
@@ -100,35 +97,15 @@ public class Factory {
 			}
 			
 			Party party = new Party(name);
-			
-			try {
-				
-				party.setProjectedNumberOfSeats(randSeats);
-				
-				party.setProjectedPercentageOfVotes(randPercent / 100);
-				
-			} catch (InvalidPartyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			party.setProjectedNumberOfSeats(randSeats);
+			party.setProjectedPercentageOfVotes(randPercent / 100);
 			return party;
 			
 		} else {
 			System.out.println("Error. Cannot have null name or negative seats/votes");
 			Party party = new Party("party");
-			
-			
-			try {
-				party.setProjectedNumberOfSeats(0);
-				
-				party.setProjectedPercentageOfVotes(0);
-				
-			} catch (InvalidPartyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			party.setProjectedNumberOfSeats(0);
+			party.setProjectedPercentageOfVotes(0);
 			return party;
 		}
 	}
@@ -161,7 +138,7 @@ public class Factory {
 	 * @param name
 	 * @return
 	 */
-	public Poll createRandomPoll(String name) throws InvalidPartyDataException {
+	public Poll createRandomPoll(String name) {
 		if (name == null) {
 			name = "poll";
 			System.out.println("Error. Poll name cannot be null.");
@@ -179,25 +156,11 @@ public class Factory {
 			winRandomizerList[i] = newParty;
 		}
 		
-		Party lastParty = null;
-		
-		try {
-			lastParty = new Party((partyNames[partyNames.length - 1]), remainingSeats, (remainingPercent / 100f));
-		} catch (InvalidPartyDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-		
+		Party lastParty = new Party((partyNames[partyNames.length - 1]), remainingSeats, (remainingPercent / 100f));
 		winRandomizerList[winRandomizerList.length - 1] = lastParty;
 		Party[] finalResults = randomizeWinner(winRandomizerList);
 		for(int i = 0; i < partyNames.length; i++) {
-			try {
-				poll.addParty(finalResults[i]);
-			} catch (PollFullException e) {
-				e.printStackTrace();
-			}
+			poll.addParty(finalResults[i]);
 		}
 		
 		return poll;
@@ -224,14 +187,7 @@ public class Factory {
 		// Now each set of party data is re-assigned the name that matches its index in partyNames
 		Party[] listWithCorrectNames = new Party[partyList.length];
 		for (int i = 0; i < partyList.length; i++) {
-			
-			try {
-				listWithCorrectNames[i] = new Party(partyNames[i], partyList[i].getProjectedNumberOfSeats(), partyList[i].getProjectedPercentageOfVotes());
-			} catch (InvalidPartyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+			listWithCorrectNames[i] = new Party(partyNames[i], partyList[i].getProjectedNumberOfSeats(), partyList[i].getProjectedPercentageOfVotes());
 		}
 		
 		return listWithCorrectNames;
@@ -246,9 +202,8 @@ public class Factory {
 	 * @author colec
 	 * @param numOfPolls
 	 * @return
-	 * @throws InvalidPartyDataException 
 	 */
-	public PollList createRandomPollList(int numOfPolls) throws InvalidPartyDataException {
+	public PollList createRandomPollList(int numOfPolls) {
 		if (numOfPolls < 0) {
 			System.out.println("Error. Number of Polls cannot be negative");
 			numOfPolls = 0;
@@ -258,12 +213,7 @@ public class Factory {
 		int pollNamer = 1;
 		for(int i = 0; i < numOfPolls; i++) {
 			Poll newPoll = createRandomPoll("poll" + pollNamer);
-			try {
-				pollList.addPoll(newPoll);
-			} catch (PollListFullException e) {
-				System.out.println("PollList is full.");
-				e.printStackTrace();
-			}
+			pollList.addPoll(newPoll);
 			pollNamer ++;
 		}
 		

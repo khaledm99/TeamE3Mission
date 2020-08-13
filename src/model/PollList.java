@@ -1,7 +1,5 @@
 package model;
 
-import application.InvalidPartyDataException;
-import model.PollFullException;
 /**
  * Classname: PollList
  * 
@@ -14,8 +12,7 @@ import model.PollFullException;
  *  				available in the election covered by the polls in the list. The PollList returns a 
  *  				PollList object that contains an Array of Polls and and Int of numOfSeats.
  */
-//PollFullExeption not declared to be thrown for entire class. Only needed to resolve exception within selected methods
-//Xavier Lewis
+
 public class PollList {
 	private Poll[] polls;
 	private int numOfSeats;
@@ -61,11 +58,8 @@ public class PollList {
 	/**
 	 * addPoll method. This method adds a Poll object to the Poll array in PollList. Does not return anything.
 	 * @param aPoll: Poll object
-	 * @throws PollListFullException 
 	 */
-	public void addPoll(Poll aPoll) throws PollListFullException {
-
-		int counter = 0;
+	public void addPoll(Poll aPoll) {
 		
 		// Checks if the Poll argument is null. If it is, print an error and does not add the poll.
 		if (aPoll != null) {	
@@ -74,20 +68,12 @@ public class PollList {
 				if (polls[index] == null || polls[index].getPollName().toLowerCase().contains(aPoll.getPollName().toLowerCase())) {
 					polls[index] = aPoll;
 					index = polls.length;
-				} else {
-					counter++;
-				}
-
+				} 
 			}
 
 		} else {
 			System.out.println("Error: The aPoll argument value is null. The poll did not change.");
 		}
-		
-//		if (counter != polls.length) {
-//			throw new PollListFullException();
-//		}
-		
 	}	
 		
 	/**
@@ -127,45 +113,20 @@ public class PollList {
 			System.out.println("first if test");
 			for (String name: partyNames) {
 				Party partyValue = this.getAveragePartyData(name);
-				try {
-					partyValue.setProjectedNumberOfSeats(partyValue.getProjectedNumberOfSeats() * size * 100 / seatSum);
-				} catch (InvalidPartyDataException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					result.addParty(partyValue);
-				} catch (PollFullException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				partyValue.setProjectedNumberOfSeats(partyValue.getProjectedNumberOfSeats() * size * 100 / seatSum);
+				result.addParty(partyValue);
 			}
 		} else if (voteSum > 1) {
 			System.out.println("second if test");
 			for (String name: partyNames) {
 				Party partyValue = this.getAveragePartyData(name);
-				try {
-					partyValue.setProjectedPercentageOfVotes(partyValue.getProjectedPercentageOfVotes() / voteSum);
-				} catch (InvalidPartyDataException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					result.addParty(partyValue);
-				} catch (PollFullException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				partyValue.setProjectedPercentageOfVotes(partyValue.getProjectedPercentageOfVotes() / voteSum);
+				result.addParty(partyValue);
 			}
 		} else {
 			for (String name: partyNames) {
 				Party partyValue = this.getAveragePartyData(name);
-				try {
-					result.addParty(partyValue);
-				} catch (PollFullException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				result.addParty(partyValue);
 			}
 		}
 		return result;
@@ -219,13 +180,7 @@ public class PollList {
 			averageProjectedVotes = totalProjectedVotes / totalPolls;
 		}
 
-		Party partyObject = null;
-		try {
-			partyObject = new Party(partyName, averageProjectedNumberOfSeats, averageProjectedVotes);
-		} catch (InvalidPartyDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Party partyObject = new Party(partyName, averageProjectedNumberOfSeats, averageProjectedVotes);
 
 		return partyObject;
 	}

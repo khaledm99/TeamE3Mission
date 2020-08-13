@@ -3,8 +3,6 @@ package model;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-
-import model.PollFullException;
 /**
  * Poll class for the CPSC 233 Assignment 1
  * Contents are encapsulated and the skeleton modified 
@@ -67,7 +65,8 @@ public class Poll {
 	 * aPartyString is a copy of the aParty argument in lowercase String type
 	 * the argument if no duplicate is found is added to the parties array of a set size
 	 */
-	public void addParty(Party aParty) throws PollFullException {
+	public void addParty(Party aParty)
+	{	
 		
 		boolean duplicateFound = false;
 		String aPartyString = aParty.getName().toLowerCase();
@@ -89,11 +88,8 @@ public class Poll {
 		stringParties[numberOfParties] = aPartyString;
 		numberOfParties++;
 		}
-		if (numberOfParties > parties.length) {
-			throw new PollFullException();
-		}
+		
 	}
-	
 	/**
 	 * 
 	 * @param name argument provided that scans the parties array for a matching aParty.getName() string
