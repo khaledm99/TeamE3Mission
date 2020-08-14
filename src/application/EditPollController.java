@@ -25,7 +25,6 @@ import java.util.Random;
 
 public class EditPollController extends PollTrackerController{
 	
-	private int test;
 	
     @FXML
     private BorderPane ToEditTab;
@@ -189,7 +188,7 @@ public class EditPollController extends PollTrackerController{
     						    			
 										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
-											errorLabel2.setText(e.getMessage());
+											errorLabel2.setText("Error: Cannot enter percentages greater than 100% and less than 0%");
 										}  						    	
     						    		
     						    		
