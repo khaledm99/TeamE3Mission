@@ -1,4 +1,4 @@
-package application;
+package model;
 
 public class PollListFullException extends Exception {
 
