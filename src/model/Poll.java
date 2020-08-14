@@ -89,6 +89,10 @@ public class Poll {
 		stringParties[numberOfParties] = aPartyString;
 		numberOfParties++;
 		}
+		/**
+		 * This exception should never really be called as we have set up the add poll to replace existing 
+		 * indexes XL
+		 */
 		if (numberOfParties > parties.length) {
 			throw new PollFullException();
 		}

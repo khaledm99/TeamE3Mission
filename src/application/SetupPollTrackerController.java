@@ -1,4 +1,7 @@
 package application;
+
+import java.lang.reflect.InvocationTargetException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +10,7 @@ import javafx.scene.control.TextField;
 import model.PollList;
 import model.PollListFullException;
 import model.Factory;
+import model.InvalidSetupDataException;
 import model.Poll;
 
 /**
@@ -58,22 +62,47 @@ public class SetupPollTrackerController extends PollTrackerController{
      * sets them as the values of a new blank poll list and factory.
      * The objects in polltrackerapp are then set to these new instances.
      * @param event
+     * @throws PollListFullException
      */
     @FXML
-    public void submitEntries(ActionEvent event) {
-    	int numPolls = Integer.parseInt(numOfPollsEntry.getText());
-    	int numParties = Integer.parseInt(numOfPartiesEntry.getText());
-    	int numSeats = Integer.parseInt(numOfSeatsEntry.getText());
+    public void submitEntries(ActionEvent event) throws PollListFullException {
+    	// Initializes the variables before checking for errors
+    	int numSeats = 0;
+    	int numPolls = 0;
+    	int numParties = 0;
+    	String[] parties = new String[0];
     	
-    	PollList polllist = new PollList(numPolls, numSeats);
+    	ErrorLabel0.setText("");
+    	
+    	PollList polllist = null;
+		
+    	// Checks that numSeats, numPolls, and numParties are positive integers
+    	// Catches and handles the relevant exception otherwise
+    	try {
+			numSeats = Integer.parseInt(numOfSeatsEntry.getText());
+			numPolls = Integer.parseInt(numOfPollsEntry.getText());
+			numParties = Integer.parseInt(numOfPartiesEntry.getText());
+			polllist = new PollList(numPolls, numSeats);
+			if (numParties < 1) {
+    			throw new InvalidSetupDataException();
+    		}
+    		parties = new String[numParties];
+		} catch (InvalidSetupDataException e1) {
+			ErrorLabel0.setText("ERROR: Inputs must be positive");
+		} catch (NumberFormatException n1) {
+			ErrorLabel0.setText("ERROR: Input must be an integer");
+		}
     	int nameCounter = 1;
-    	for (int i = 0; i < numPolls; i++) {
+  
+		for (int i = 0; i < numPolls; i++) {
     		Poll poll = new Poll("Poll" + nameCounter, numSeats);
     		try {
 				polllist.addPoll(poll);
-			} catch (PollListFullException e) {
-				e.printStackTrace();
-				ErrorLabel0.setText("Error: PollList is full. Cannot add to PollList.");
+			} catch (application.PollListFullException e) {
+				// Throws error if poll list is full and sets the error label to display the message
+				ErrorLabel0.setText("Poll list full");
+			} catch (NullPointerException n) {
+				
 			}
     		nameCounter++;
     	}
@@ -81,9 +110,11 @@ public class SetupPollTrackerController extends PollTrackerController{
     	setPollList(polllist);
     	
     	Factory factory = new Factory(numSeats);
-    	String[] parties = new String[numParties];
     	
-    	for (int i = 0; i < parties.length; i++) {
+    	
+    
+    	
+		for (int i = 0; i < parties.length; i++) {
     		parties[i] = String.valueOf(i + 1);
     	}
     	

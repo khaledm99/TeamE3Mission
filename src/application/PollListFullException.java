@@ -1,16 +1,4 @@
-package model;
-
-/*
- * Classname: PollListFullException
- * 
- * Version: 0
- * 
- * Author: William Ho
- * 
- * Description: PollListFullException that will be thrown when PollList is full.
- * 
- * 
- */
+package application;
 
 public class PollListFullException extends Exception {
 

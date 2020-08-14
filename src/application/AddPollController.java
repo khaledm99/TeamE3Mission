@@ -28,7 +28,7 @@ public class AddPollController extends PollTrackerController{
     private TextField PollToAdd; // Textfield to enter poll name
 
     @FXML
-    private ChoiceBox<String> PollPlacement; // Choice box to choose a poll to replace
+    private ChoiceBox PollPlacement; // Choice box to choose a poll to replace
 
     @FXML
     private Button AddButton; // Button to add poll to poll list
@@ -41,6 +41,9 @@ public class AddPollController extends PollTrackerController{
     
     @FXML
     private Label AddPollLabel;
+    
+    @FXML
+    private Label nullErrorLabel;
 
     /**
      * addClick method. Takes the user input in the choice box
@@ -54,12 +57,17 @@ public class AddPollController extends PollTrackerController{
     	Poll[] polls = pollList.getPolls();
     	Factory factory = super.getFactory();
     	Poll poll = factory.createRandomPoll(pollName);
+    	if (PollPlacement.getValue() == null) {
+    		// If user has not selcted any poll to replace, it will catch the null error and display errors on the error label. 
+    		nullErrorLabel.setText("Error: Need to select poll placement.");
+    	} else {
     	String choice = (String) PollPlacement.getValue();
     	String s = choice.substring(0,1);
     	int index = Integer.parseInt(s);
     	polls[index-1] = poll;
     	pollList.setPolls(polls);
     	super.setPollList(pollList);
+    	}
 
     }
 
@@ -80,6 +88,7 @@ public class AddPollController extends PollTrackerController{
     @Override
 	public void refresh() {
 		PollToAdd.clear();
+		nullErrorLabel.setText("" );
 		PollPlacement.getItems().clear();
 		String pollName = PollToAdd.getText();
     	PollList pollList = super.getPollList();

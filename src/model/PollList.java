@@ -1,6 +1,7 @@
 package model;
 
-import application.InvalidPartyDataException;
+import model.InvalidPartyDataException;
+import application.PollListFullException;
 import model.PollFullException;
 /**
  * Classname: PollList
@@ -13,9 +14,18 @@ import model.PollFullException;
  *  				numOfPolls is the total number of Polls in the list. numOfSeats is the number of seats 
  *  				available in the election covered by the polls in the list. The PollList returns a 
  *  				PollList object that contains an Array of Polls and and Int of numOfSeats.
- */
-//PollFullExeption not declared to be thrown for entire class. Only needed to resolve exception within selected methods
-//Xavier Lewis
+ * PollFullExeption: not declared to be thrown for entire class. Only needed to resolve exception within selected methods
+ * 						- Xavier Lewis
+ * 
+ * InvalidSetupDataException: The only error handling done here was printing stack messages since the error handling is done within
+ * 							  the party class itself on data submission (e.g. if negative number of seats are entered the number of 
+ * 							  seats are set to zero. For unreasonable percentages (less than 0 greater than 1), the percentage is
+ * 							  set to 0.0.
+ * 							- Homing Wat
+ * 															
+*/				 
+					 
+
 public class PollList {
 	private Poll[] polls;
 	private int numOfSeats;
@@ -24,24 +34,18 @@ public class PollList {
 	 * PollList constructor. Takes the following parameters:
 	 * @param numOfPolls: number of polls this list should be able to contain
 	 * @param numOfSeats: number of seats that are available in the election covered by the polls in the list.
+	 * @throws InvalidSetupDataException: Throws the exception if numOfPolls or numOfSeats are less than 1
 	 * 
-	 * The number of polls should be at least 1. If it is not, the number of polls is set to 5. 
-	 * The number of seats should be at least 1. If it is not, the number of seats is set to 10.
 	 */
-	public PollList(int numOfPolls, int numOfSeats) {
-		if (numOfPolls < 1) {
-			polls = new Poll[5];
-			System.out.println("Note: The argument numOfPolls is invalid (less than 1). It is now set it to 5.");
+	public PollList(int numOfPolls, int numOfSeats) throws InvalidSetupDataException{
+		if (numOfPolls < 1 || numOfSeats < 1)  {
+			throw new InvalidSetupDataException();
 		} else {
 			polls = new Poll[numOfPolls];
-		}
-		
-		if (numOfSeats < 1) {
-			this.numOfSeats = 10;
-			System.out.println("Note: The arguement numOfSeats is invalid (less than 1). It is now set it to 10.");
-		} else { 
 			this.numOfSeats = numOfSeats;
 		}
+		
+		
 	}
 	
 	// Returns the number of seats as an integer.
@@ -63,7 +67,7 @@ public class PollList {
 	 * @param aPoll: Poll object
 	 * @throws PollListFullException 
 	 */
-	public void addPoll(Poll aPoll) throws PollListFullException {
+	public void addPoll(Poll aPoll) throws PollListFullException  {
 
 		int counter = 0;
 		
@@ -84,7 +88,7 @@ public class PollList {
 			System.out.println("Error: The aPoll argument value is null. The poll did not change.");
 		}
 		
-		if (counter != polls.length) {
+		if (counter == polls.length) {
 			throw new PollListFullException();
 		}
 		
@@ -106,7 +110,7 @@ public class PollList {
 				size++;
 			}
 		}
-	
+		
 		Poll result = new Poll("Aggregate", size);
 		
 		// Introducing sum variables to keep track of total seats and percentage of votes in the poll.
@@ -151,6 +155,12 @@ public class PollList {
 					e1.printStackTrace();
 				}
 				try {
+					/**
+					 * see addParty method for details of why this wont catch ever based on our code setup. 
+					 * I have chosen to catch this in the method rather than throw it from the class as there is not
+					 * a case where I would have to catch the exception
+					 * XL
+					 */
 					result.addParty(partyValue);
 				} catch (PollFullException e) {
 					// TODO Auto-generated catch block
@@ -225,6 +235,7 @@ public class PollList {
 		} catch (InvalidPartyDataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 
 		return partyObject;

@@ -11,6 +11,25 @@
    <center>
       <VBox prefHeight="905.0" prefWidth="849.0" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="errorLabel1" textFill="RED">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="400.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="errorLabel2" textFill="RED">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="400.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="849.0">
                <children>
                   <Label text="Poll To Edit: ">
@@ -37,14 +56,6 @@
                         <Insets bottom="10.0" left="5.0" right="10.0" top="15.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Label fx:id="errorLabel" textFill="RED">
-                     <HBox.margin>
-                        <Insets left="200.0" top="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="849.0">
@@ -62,7 +73,7 @@
                         <Insets bottom="10.0" left="10.0" right="5.0" top="15.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="/345">
+                  <Label fx:id="AvalSeats" text="/345">
                      <padding>
                         <Insets top="10.0" />
                      </padding>

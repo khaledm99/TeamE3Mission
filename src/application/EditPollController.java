@@ -24,7 +24,8 @@ import java.util.Random;
  */
 
 public class EditPollController extends PollTrackerController{
-
+	
+	
     @FXML
     private BorderPane ToEditTab;
     
@@ -54,8 +55,13 @@ public class EditPollController extends PollTrackerController{
     private Label PollUpdatedLabel;
     
     @FXML
-    private Label errorLabel;
+    private Label errorLabel1;
     
+    @FXML
+    private Label errorLabel2;
+    
+    @FXML
+    private Label AvalSeats;
     
     /**
      * Above are private instances created in the Scene Builder
@@ -67,6 +73,9 @@ public class EditPollController extends PollTrackerController{
     	String [] emptyList = new String[0];
 		PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(emptyList));
 		PollUpdatedLabel.setText("Party(ies) Updated:");
+		errorLabel2.setText("");
+		errorLabel1.setText("");
+		
     	refresh();
     }
    
@@ -76,6 +85,7 @@ public class EditPollController extends PollTrackerController{
    
     @FXML
     void initialize() {
+    	
         assert ProPercVotesTextField != null : "fx:id=\"ProPercVotesTextField\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert PollToEditDropdown != null : "fx:id=\"PollToEditDropdown\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert ProNumOfSeatsTextField != null : "fx:id=\"ProNumOfSeatsTextField\" was not injected: check your FXML file 'EditPollView.fxml'.";
@@ -91,7 +101,7 @@ public class EditPollController extends PollTrackerController{
 	 * or clear is clicked, or when switching between tabs
 	 */
 	public void refresh() {	
-		
+		AvalSeats.setText("/"+ String.valueOf(getPollList().getNumOfSeats()));
 		PollUpdatedLabel.setOpacity(0.0);
 		ProNumOfSeatsTextField.setText("");
 		ProPercVotesTextField.setText("");
@@ -138,17 +148,29 @@ public class EditPollController extends PollTrackerController{
     						    		 * 
     						    		 */
     						    		
+    						    		//catching invalid party data submission into GUI	
     						   			try {
+    						   				if (getPollList().getNumOfSeats() >= Integer.valueOf(ProNumOfSeatsTextField.getText())) {
 											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
-											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
+											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));							
+											errorLabel1.setText("");
+    						   				}
+    						   				else {
+    						   					/**
+    						   					 * while not a conventional error catch, this message will display the correct range to be entered byu the user and will not
+    						   					 * affect the seats being updated. The percentage if correct will be updated still. While this does not 
+    						   					 * throw a invalidSetupException it probably should have but in our code we anticipated events like these ahead of time
+    						   					 * XL
+    						   					 */
+    						   					errorLabel1.setText("ERROR must enter valid number of seats within range: 0 - " + getPollList().getNumOfSeats());
+    						   				}
+							
+										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
-											
+											errorLabel1.setText(e.getMessage());
+				
 										}	
-    						   			
-    						   			
+   				    						   			
     						    		Party selectedParty = getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()];
     						   			float percVotes = Float.valueOf(ProPercVotesTextField.getText());
     						   			if (percVotes > 0 && percVotes <= 100){
@@ -156,14 +178,18 @@ public class EditPollController extends PollTrackerController{
     						   				percVotes = percVotes/100;
     						   			}
     						   			
+    						   			//catching  invalid party data submission into GUI		
+    						   			
     						    		try {
-											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
+											
+    						    			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
+											
+    						    			errorLabel2.setText("");
+    						    			
+										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
+											errorLabel2.setText("Error: Cannot enter percentages greater than 100% and less than 0%");
 										}  						    	
-    						    		
     						    		
     						    		
     						    		refresh();
@@ -204,7 +230,4 @@ public class EditPollController extends PollTrackerController{
     			);
     	}
 	}
-	
-
-
 	

@@ -1,6 +1,5 @@
 package model;
 
-import application.InvalidPartyDataException;
 
 /**
  * Classname: Party
@@ -89,12 +88,11 @@ public class Party {
 		
 		if(numberOfSeats < 0.0) {
 			
-			//?????????????????????????????
+		
 			this.projectedNumberOfSeats = 0;
 			
 			throw new InvalidPartyDataException("ERROR: Cannot enter negative numbers");
-			
-			
+	
 		}
 		else {
 			this.projectedNumberOfSeats = numberOfSeats;
@@ -102,7 +100,7 @@ public class Party {
 		
 		if(percentage < 0.0 || percentage > 1.0) {
 			
-			//?????????????????????????????????????
+		
 			this.projectedPercentageOfVotes = 0;
 	
 			throw new InvalidPartyDataException("ERROR: Cannot enter a percentage less than zero or greater than 1");
