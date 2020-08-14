@@ -146,6 +146,12 @@ public class PollList {
 					e1.printStackTrace();
 				}
 				try {
+					/**
+					 * see addParty method for details of why this wont catch ever based on our code setup. 
+					 * I have chosen to catch this in the method rather than throw it from the class as there is not
+					 * a case where I would have to catch the exception
+					 * XL
+					 */
 					result.addParty(partyValue);
 				} catch (PollFullException e) {
 					// TODO Auto-generated catch block

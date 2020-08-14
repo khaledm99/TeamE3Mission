@@ -197,6 +197,12 @@ public class Factory {
 		for(int i = 0; i < partyNames.length; i++) {
 			try {
 				poll.addParty(finalResults[i]);
+				/**
+				 * Again see Poll. This catch should never really be called based on how the code is set up, addPoll will replace
+				 * an existing poll at it's index rather than add to a fixed list of polls
+				 * XL
+				 */
+				
 			} catch (PollFullException e) {
 				e.printStackTrace();
 			}
