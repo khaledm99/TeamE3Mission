@@ -58,6 +58,7 @@ public class AddPollController extends PollTrackerController{
     	Factory factory = super.getFactory();
     	Poll poll = factory.createRandomPoll(pollName);
     	if (PollPlacement.getValue() == null) {
+    		// If user has not selcted any poll to replace, it will catch the null error and display errors on the error label. 
     		nullErrorLabel.setText("Error: Need to select poll placement.");
     	} else {
     	String choice = (String) PollPlacement.getValue();
