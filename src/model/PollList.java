@@ -25,18 +25,25 @@ public class PollList {
 	 * PollList constructor. Takes the following parameters:
 	 * @param numOfPolls: number of polls this list should be able to contain
 	 * @param numOfSeats: number of seats that are available in the election covered by the polls in the list.
-	 * @throws InvalidSetupDataException: Throws the exception if numOfPolls or numOfSeats are less than 1
 	 * 
+	 * The number of polls should be at least 1. If it is not, the number of polls is set to 5. 
+	 * The number of seats should be at least 1. If it is not, the number of seats is set to 10.
 	 */
 	public PollList(int numOfPolls, int numOfSeats) throws InvalidSetupDataException{
-		if (numOfPolls < 1 || numOfSeats < 1)  {
+		if (numOfPolls < 1) {
+			//polls = new Poll[5];
+			//System.out.println("Note: The argument numOfPolls is invalid (less than 1). It is now set it to 5.");
 			throw new InvalidSetupDataException();
 		} else {
 			polls = new Poll[numOfPolls];
-			this.numOfSeats = numOfSeats;
 		}
 		
-		
+		if (numOfSeats < 1) {
+			this.numOfSeats = 10;
+			System.out.println("Note: The arguement numOfSeats is invalid (less than 1). It is now set it to 10.");
+		} else { 
+			this.numOfSeats = numOfSeats;
+		}
 	}
 	
 	// Returns the number of seats as an integer.

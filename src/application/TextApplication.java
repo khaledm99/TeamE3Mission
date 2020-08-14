@@ -86,7 +86,7 @@ public class TextApplication {
 	 * for various data to be displayed. Allows the user to change display mode after viewing or quit.
 	 * Doesn't return anything. 
 	 */
-	public void run() throws PollListFullException {
+	public void run() {
 		Scanner seatInp = new Scanner(System.in);
 		Scanner namesInp = new Scanner(System.in);
 		Scanner pollsInp = new Scanner(System.in);
@@ -213,7 +213,7 @@ public class TextApplication {
 			for (int index = 0; index < pollList.length; index++) {
 				try {
 					polls.addPoll(pollList[index]);
-				} catch (application.PollListFullException e) {
+				} catch (PollListFullException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -255,12 +255,7 @@ public class TextApplication {
 		
 		TextApplication app = new TextApplication(null);
 	
-		try {
-			app.run();
-		} catch (PollListFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		app.run();
 		
 	}
 }
