@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -100,7 +101,6 @@ public class PollTrackerApp extends Application {
 		try {
 			polls = factory.createRandomPollList(DEFAULT_NUMBER_OF_POLLS);
 		} catch (InvalidSetupDataException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//polls = new PollList(DEFAULT_NUMBER_OF_POLLS, DEFAULT_NUMBER_OF_SEATS);
