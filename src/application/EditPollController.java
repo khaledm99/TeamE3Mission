@@ -61,6 +61,8 @@ public class EditPollController extends PollTrackerController{
     @FXML
     private Label errorLabel2;
     
+    @FXML
+    private Label AvalSeats;
     
     /**
      * Above are private instances created in the Scene Builder
@@ -100,7 +102,7 @@ public class EditPollController extends PollTrackerController{
 	 * or clear is clicked, or when switching between tabs
 	 */
 	public void refresh() {	
-		
+		AvalSeats.setText("/"+ String.valueOf(getPollList().getNumOfSeats()));
 		PollUpdatedLabel.setOpacity(0.0);
 		ProNumOfSeatsTextField.setText("");
 		ProPercVotesTextField.setText("");
@@ -149,10 +151,20 @@ public class EditPollController extends PollTrackerController{
     						    		
     						    			
     						   			try {
-    						   				
+    						   				if (getPollList().getNumOfSeats() >= Integer.valueOf(ProNumOfSeatsTextField.getText())) {
 											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
 											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));							
 											errorLabel1.setText("");
+    						   				}
+    						   				else {
+    						   					/**
+    						   					 * while not a conventional error catch, this message will display the correct range to be entered byu the user and will not
+    						   					 * affect the seats being updated. The percentage if correct will be updated still. While this does not 
+    						   					 * throw a invalidSetupException it probably should have but in our code we anticipated events like these ahead of time
+    						   					 * XL
+    						   					 */
+    						   					errorLabel1.setText("ERROR must enter valid number of seats within range: 0 - " + getPollList().getNumOfSeats());
+    						   				}
 							
 										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
