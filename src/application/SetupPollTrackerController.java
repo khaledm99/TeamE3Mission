@@ -1,4 +1,7 @@
 package application;
+
+import java.lang.reflect.InvocationTargetException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,28 +62,47 @@ public class SetupPollTrackerController extends PollTrackerController{
      * sets them as the values of a new blank poll list and factory.
      * The objects in polltrackerapp are then set to these new instances.
      * @param event
+     * @throws PollListFullException
      */
     @FXML
     public void submitEntries(ActionEvent event) throws PollListFullException {
-    	int numPolls = Integer.parseInt(numOfPollsEntry.getText());
-    	int numParties = Integer.parseInt(numOfPartiesEntry.getText());
-    	int numSeats = Integer.parseInt(numOfSeatsEntry.getText());
+    	// Initializes the variables before checking for errors
+    	int numSeats = 0;
+    	int numPolls = 0;
+    	int numParties = 0;
+    	String[] parties = new String[0];
+    	
+    	ErrorLabel0.setText("");
     	
     	PollList polllist = null;
-		try {
+		
+    	// Checks that numSeats, numPolls, and numParties are positive integers
+    	// Catches and handles the relevant exception otherwise
+    	try {
+			numSeats = Integer.parseInt(numOfSeatsEntry.getText());
+			numPolls = Integer.parseInt(numOfPollsEntry.getText());
+			numParties = Integer.parseInt(numOfPartiesEntry.getText());
 			polllist = new PollList(numPolls, numSeats);
+			if (numParties < 1) {
+    			throw new InvalidSetupDataException();
+    		}
+    		parties = new String[numParties];
 		} catch (InvalidSetupDataException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			ErrorLabel0.setText("ERROR: Inputs must be positive");
+		} catch (NumberFormatException n1) {
+			ErrorLabel0.setText("ERROR: Input must be an integer");
 		}
     	int nameCounter = 1;
-    	for (int i = 0; i < numPolls; i++) {
+  
+		for (int i = 0; i < numPolls; i++) {
     		Poll poll = new Poll("Poll" + nameCounter, numSeats);
     		try {
 				polllist.addPoll(poll);
 			} catch (application.PollListFullException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ErrorLabel0.setText("Poll list full");
+			} catch (NullPointerException n) {
+				
 			}
     		nameCounter++;
     	}
@@ -88,9 +110,11 @@ public class SetupPollTrackerController extends PollTrackerController{
     	setPollList(polllist);
     	
     	Factory factory = new Factory(numSeats);
-    	String[] parties = new String[numParties];
     	
-    	for (int i = 0; i < parties.length; i++) {
+    	
+    
+    	
+		for (int i = 0; i < parties.length; i++) {
     		parties[i] = String.valueOf(i + 1);
     	}
     	

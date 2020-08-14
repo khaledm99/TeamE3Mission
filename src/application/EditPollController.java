@@ -147,7 +147,7 @@ public class EditPollController extends PollTrackerController{
     						    		 * 
     						    		 */
     						    		
-    						    			
+    						    		//catching invalid party data submission into GUI	
     						   			try {
     						   				
 											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
@@ -157,8 +157,6 @@ public class EditPollController extends PollTrackerController{
 										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
 											errorLabel1.setText(e.getMessage());
-											e.printStackTrace();
-									
 				
 										}	
    				    						   			
@@ -169,9 +167,14 @@ public class EditPollController extends PollTrackerController{
     						   				percVotes = percVotes/100;
     						   			}
     						   			
+    						   			//catching  invalid party data submission into GUI		
+    						   			
     						    		try {
-											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
-											errorLabel2.setText("");
+											
+    						    			getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
+											
+    						    			errorLabel2.setText("");
+    						    			
 										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
 											errorLabel2.setText(e.getMessage());
@@ -216,5 +219,4 @@ public class EditPollController extends PollTrackerController{
     			);
     	}
 	}
-	
 	
