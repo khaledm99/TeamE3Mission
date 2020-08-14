@@ -249,7 +249,7 @@ public class Factory {
 	 * @return
 	 * @throws PollListFullException 
 	 */
-	public PollList createRandomPollList(int numOfPolls)  {
+	public PollList createRandomPollList(int numOfPolls) throws InvalidSetupDataException {
 		if (numOfPolls < 0) {
 			System.out.println("Error. Number of Polls cannot be negative");
 			numOfPolls = 0;

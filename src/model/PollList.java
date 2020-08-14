@@ -29,10 +29,11 @@ public class PollList {
 	 * The number of polls should be at least 1. If it is not, the number of polls is set to 5. 
 	 * The number of seats should be at least 1. If it is not, the number of seats is set to 10.
 	 */
-	public PollList(int numOfPolls, int numOfSeats) {
+	public PollList(int numOfPolls, int numOfSeats) throws InvalidSetupDataException{
 		if (numOfPolls < 1) {
-			polls = new Poll[5];
-			System.out.println("Note: The argument numOfPolls is invalid (less than 1). It is now set it to 5.");
+			//polls = new Poll[5];
+			//System.out.println("Note: The argument numOfPolls is invalid (less than 1). It is now set it to 5.");
+			throw new InvalidSetupDataException();
 		} else {
 			polls = new Poll[numOfPolls];
 		}

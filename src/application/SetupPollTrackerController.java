@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import model.PollList;
 import model.PollListFullException;
 import model.Factory;
+import model.InvalidSetupDataException;
 import model.Poll;
 
 /**
@@ -60,20 +61,26 @@ public class SetupPollTrackerController extends PollTrackerController{
      * @param event
      */
     @FXML
-    public void submitEntries(ActionEvent event) {
+    public void submitEntries(ActionEvent event) throws PollListFullException {
     	int numPolls = Integer.parseInt(numOfPollsEntry.getText());
     	int numParties = Integer.parseInt(numOfPartiesEntry.getText());
     	int numSeats = Integer.parseInt(numOfSeatsEntry.getText());
     	
-    	PollList polllist = new PollList(numPolls, numSeats);
+    	PollList polllist = null;
+		try {
+			polllist = new PollList(numPolls, numSeats);
+		} catch (InvalidSetupDataException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	int nameCounter = 1;
     	for (int i = 0; i < numPolls; i++) {
     		Poll poll = new Poll("Poll" + nameCounter, numSeats);
     		try {
 				polllist.addPoll(poll);
-			} catch (PollListFullException e) {
+			} catch (application.PollListFullException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-				ErrorLabel0.setText("Error: PollList is full. Cannot add to PollList.");
 			}
     		nameCounter++;
     	}

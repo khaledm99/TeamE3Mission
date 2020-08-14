@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import model.Factory;
+import model.InvalidSetupDataException;
 import model.PollList;
 
 import javafx.scene.Scene;
@@ -96,7 +97,12 @@ public class PollTrackerApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 	
-		polls = factory.createRandomPollList(DEFAULT_NUMBER_OF_POLLS);
+		try {
+			polls = factory.createRandomPollList(DEFAULT_NUMBER_OF_POLLS);
+		} catch (InvalidSetupDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//polls = new PollList(DEFAULT_NUMBER_OF_POLLS, DEFAULT_NUMBER_OF_SEATS);
 			
 		TabPane root = new TabPane(
