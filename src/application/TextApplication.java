@@ -14,8 +14,11 @@ package application;
  * 				displaying the data.
  */
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 import model.Factory;
+import model.InvalidPartyDataException;
+import model.InvalidSetupDataException;
 import model.Party;
 import model.Poll;
 import model.PollFullException;
@@ -88,11 +91,27 @@ public class TextApplication {
 		Scanner namesInp = new Scanner(System.in);
 		Scanner pollsInp = new Scanner(System.in);
 		Scanner genInp = new Scanner(System.in);
+		int seatCount = 0;
+		int pollCount = 0;
+		boolean checker = false;
+		boolean checker2 = false;
 		
 		System.out.println("Welcome to the Poll Tracker");
-		System.out.print("How many seats are available in the election? ");
-		int seatCount = seatInp.nextInt();
 		
+		while (!checker) {
+		
+			checker = true;
+			try {
+				System.out.println("How many seats are available in the election?" + "\n");
+				seatCount = seatInp.nextInt();
+				Factory testfact = new Factory(seatCount);
+				PollList polllisttest = new PollList(1, seatCount);
+			} catch (InputMismatchException |model.InvalidSetupDataException e) {
+				System.out.println("Error: Please enter a positive integer" + "\n");
+				seatInp.next();
+				checker = false;
+			}
+		}
 		System.out.println("Which parties are in the election (provide names, comma separated): ");
 
 		String nameString = "";
@@ -102,10 +121,21 @@ public class TextApplication {
 		if (nameString.isEmpty()) {
 		System.out.println("Error: Need proper party names.");
 		}
-			
 		
-		System.out.println("How many polls do you want to track? ");
-		int pollCount = pollsInp.nextInt();
+		while (!checker2) {
+			
+			checker2 = true;
+			try {
+				System.out.println("How many polls do you want to track? " + "\n");
+				pollCount = pollsInp.nextInt();
+				Factory testfact = new Factory(seatCount);
+				PollList polllisttest = testfact.createRandomPollList(pollCount);
+			} catch (InputMismatchException |model.InvalidSetupDataException e) {
+				System.out.println("Error: Please enter a positive integer" + "\n");
+				pollsInp.next();
+				checker2 = false;
+			}
+		}
 		
 		System.out.println("Would you like me to create a random set of polls? ");
 		String randomSet = genInp.nextLine();
@@ -113,10 +143,20 @@ public class TextApplication {
 		if (randomSet.equals("yes")) {
 			Factory fact = new Factory(seatCount);
 			fact.setPartyNames(nameList);
-			polls = fact.createRandomPollList(pollCount);
+			try {
+				polls = fact.createRandomPollList(pollCount);
+			} catch (InvalidSetupDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (randomSet.equals("no")){
-			polls = new PollList(pollCount, seatCount);
+			try {
+				polls = new PollList(pollCount, seatCount);
+			} catch (InvalidSetupDataException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			Poll[] pollList = polls.getPolls();
 			Scanner projSeatsInp = new Scanner(System.in); // Initializes scanner for prompting the projected number of seats
 			Scanner projVotesInp = new Scanner(System.in); // Initializes scanner for prompting the projected vote percentage
