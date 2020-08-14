@@ -66,6 +66,7 @@ public class AddPollController extends PollTrackerController{
     	polls[index-1] = poll;
     	pollList.setPolls(polls);
     	super.setPollList(pollList);
+    	nullErrorLabel.setText("");
     	}
 
     }
