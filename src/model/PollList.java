@@ -14,9 +14,18 @@ import model.PollFullException;
  *  				numOfPolls is the total number of Polls in the list. numOfSeats is the number of seats 
  *  				available in the election covered by the polls in the list. The PollList returns a 
  *  				PollList object that contains an Array of Polls and and Int of numOfSeats.
- */
-//PollFullExeption not declared to be thrown for entire class. Only needed to resolve exception within selected methods
-//Xavier Lewis
+ * PollFullExeption: not declared to be thrown for entire class. Only needed to resolve exception within selected methods
+ * 						- Xavier Lewis
+ * 
+ * InvalidSetupDataException: The only error handling done here was printing stack messages since the error handling is done within
+ * 							  the party class itself on data submission (e.g. if negative number of seats are entered the number of 
+ * 							  seats are set to zero. For unreasonable percentages (less than 0 greater than 1), the percentage is
+ * 							  set to 0.0.
+ * 							- Homing Wat
+ * 															
+*/				 
+					 
+
 public class PollList {
 	private Poll[] polls;
 	private int numOfSeats;
@@ -220,6 +229,7 @@ public class PollList {
 		} catch (InvalidPartyDataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 
 		return partyObject;
