@@ -1,6 +1,6 @@
 package model;
 
-import application.InvalidPartyDataException;
+import model.InvalidPartyDataException;
 import application.PollListFullException;
 import model.PollFullException;
 /**
@@ -108,7 +108,7 @@ public class PollList {
 				size++;
 			}
 		}
-	
+		
 		Poll result = new Poll("Aggregate", size);
 		
 		// Introducing sum variables to keep track of total seats and percentage of votes in the poll.

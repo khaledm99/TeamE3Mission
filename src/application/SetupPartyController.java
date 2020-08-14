@@ -11,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import model.Factory;
 
-
 /**
  * Classname: SetupPartyController
  *
@@ -118,9 +117,9 @@ public class SetupPartyController extends PollTrackerController {
 	@FXML
 	void initialize() {
 		
-		partyNames = populateObervableList(givenPartyNames);
+		//partyNames = populateObervableList(givenPartyNames);
 		
-		PartyNameComboBox.setItems(partyNames);
+		//PartyNameComboBox.setItems(partyNames);
 	}
 
 	/**
@@ -144,17 +143,21 @@ public class SetupPartyController extends PollTrackerController {
 	@Override
 	public void refresh() {
 		
+		PartyNameComboBox.getItems().clear();
+		
 		partyNameArraySize = getFactory().getPartyNames().length;
 		
 		for (int i = 0; i < partyNameArraySize; i++) {
 			givenPartyNames.add(getFactory().getPartyNames()[i]);
 		}
 		
+		partyNames = populateObervableList(givenPartyNames);
+		
+		PartyNameComboBox.setItems(partyNames);
+		
+		
 		// TODO Auto-generated method stub
-		
-		
+			
 	}
 	
-	
-
 }
