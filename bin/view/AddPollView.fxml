@@ -13,5 +13,6 @@
       <Button fx:id="ClearButton" layoutX="217.0" layoutY="298.0" mnemonicParsing="false" onAction="#clearClick" text="Clear" />
       <ChoiceBox fx:id="PollPlacement" layoutX="212.0" layoutY="185.0" prefHeight="31.0" prefWidth="216.0" />
       <Label layoutX="47.0" layoutY="190.0" text="Select Poll Placement:" />
+      <Label fx:id="nullErrorLabel" layoutX="212.0" layoutY="349.0" prefHeight="17.0" prefWidth="250.0" textFill="#fc0000" />
    </children>
 </AnchorPane>
