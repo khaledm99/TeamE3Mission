@@ -24,7 +24,9 @@ import java.util.Random;
  */
 
 public class EditPollController extends PollTrackerController{
-
+	
+	private int test;
+	
     @FXML
     private BorderPane ToEditTab;
     
@@ -54,7 +56,10 @@ public class EditPollController extends PollTrackerController{
     private Label PollUpdatedLabel;
     
     @FXML
-    private Label errorLabel;
+    private Label errorLabel1;
+    
+    @FXML
+    private Label errorLabel2;
     
     
     /**
@@ -67,6 +72,9 @@ public class EditPollController extends PollTrackerController{
     	String [] emptyList = new String[0];
 		PartyToUpdateDropdown.setItems(FXCollections.observableArrayList(emptyList));
 		PollUpdatedLabel.setText("Party(ies) Updated:");
+		errorLabel2.setText("");
+		errorLabel1.setText("");
+		
     	refresh();
     }
    
@@ -76,6 +84,7 @@ public class EditPollController extends PollTrackerController{
    
     @FXML
     void initialize() {
+    	
         assert ProPercVotesTextField != null : "fx:id=\"ProPercVotesTextField\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert PollToEditDropdown != null : "fx:id=\"PollToEditDropdown\" was not injected: check your FXML file 'EditPollView.fxml'.";
         assert ProNumOfSeatsTextField != null : "fx:id=\"ProNumOfSeatsTextField\" was not injected: check your FXML file 'EditPollView.fxml'.";
@@ -138,17 +147,21 @@ public class EditPollController extends PollTrackerController{
     						    		 * 
     						    		 */
     						    		
+    						    			
     						   			try {
+    						   				
 											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel()
-											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
+											    .selectedIndexProperty().intValue()].setProjectedNumberOfSeats((Integer.valueOf(ProNumOfSeatsTextField.getText())));							
+											errorLabel1.setText("");
+							
+										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
-											
+											errorLabel1.setText(e.getMessage());
+											e.printStackTrace();
+									
+				
 										}	
-    						   			
-    						   			
+   				    						   			
     						    		Party selectedParty = getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()];
     						   			float percVotes = Float.valueOf(ProPercVotesTextField.getText());
     						   			if (percVotes > 0 && percVotes <= 100){
@@ -158,12 +171,11 @@ public class EditPollController extends PollTrackerController{
     						   			
     						    		try {
 											getPollList().getPolls()[index].getPartiesSortedByVotes()[PartyToUpdateDropdown.getSelectionModel().selectedIndexProperty().intValue()].setProjectedPercentageOfVotes(percVotes);
-											errorLabel.setText("");
-										} catch (InvalidPartyDataException e) {
+											errorLabel2.setText("");
+										} catch (model.InvalidPartyDataException e) {
 											// TODO Auto-generated catch block
-											errorLabel.setText(e.getMessage());
+											errorLabel2.setText(e.getMessage());
 										}  						    	
-    						    		
     						    		
     						    		
     						    		refresh();
@@ -205,6 +217,4 @@ public class EditPollController extends PollTrackerController{
     	}
 	}
 	
-
-
 	

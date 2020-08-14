@@ -2,7 +2,7 @@ package model;
 
 import java.util.Random;
 
-import application.InvalidPartyDataException;
+import model.InvalidPartyDataException;
 import application.PollListFullException;
 import model.PollFullException;
 
@@ -87,7 +87,7 @@ public class Factory {
 	 * @param maxPercent
 	 * @return
 	 */
-	public Party createRandomParty(String name, int maxSeats, int maxPercent) {
+	public Party createRandomParty(String name, int maxSeats, int maxPercent)  {
 		Random rand = new Random();
 		if (name != null && maxSeats >= 0 && maxPercent >= 0) {
 			float randSeats = rand.nextInt(maxSeats + 1);
@@ -100,26 +100,27 @@ public class Factory {
 				randPercent = 0;
 			}
 			
+			
 			Party party = new Party(name);
 			
+				
 			try {
 				
 				party.setProjectedNumberOfSeats(randSeats);
-				
 				party.setProjectedPercentageOfVotes(randPercent / 100);
 				
-			} catch (InvalidPartyDataException e) {
+			} catch (model.InvalidPartyDataException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+				
 			return party;
 			
 		} else {
 			System.out.println("Error. Cannot have null name or negative seats/votes");
 			Party party = new Party("party");
 			
-			
+		
 			try {
 				party.setProjectedNumberOfSeats(0);
 				

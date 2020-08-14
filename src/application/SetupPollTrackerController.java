@@ -79,7 +79,7 @@ public class SetupPollTrackerController extends PollTrackerController{
     		try {
 				polllist.addPoll(poll);
 			} catch (application.PollListFullException e) {
-				ErrorLabel0.setText("ERROR: PollList is full.");
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     		nameCounter++;

@@ -37,10 +37,15 @@
                         <Insets bottom="10.0" left="5.0" right="10.0" top="15.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Label fx:id="errorLabel" textFill="RED">
+                  <Label fx:id="errorLabel1" textFill="RED">
                      <HBox.margin>
                         <Insets left="200.0" top="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="errorLabel2" textFill="RED">
                      <font>
                         <Font size="20.0" />
                      </font>

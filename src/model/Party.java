@@ -1,6 +1,5 @@
 package model;
 
-import application.InvalidPartyDataException;
 
 /**
  * Classname: Party
@@ -93,8 +92,7 @@ public class Party {
 			this.projectedNumberOfSeats = 0;
 			
 			throw new InvalidPartyDataException("ERROR: Cannot enter negative numbers");
-			
-			
+	
 		}
 		else {
 			this.projectedNumberOfSeats = numberOfSeats;
